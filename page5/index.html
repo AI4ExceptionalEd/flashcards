@@ -1,0 +1,544 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../page2/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.6">
+    
+    
+      
+        <title>About - Flashcards Demo</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0e669242.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script src="cached.js"></script>
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="pink">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-are-speech-language-disorders" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  <div class="heading-container">
+    <div class="img-container">
+      <img src="../assets/images/logo.png" alt="Beautiful Image">
+    </div>
+    <div class="header-right">
+      <div style="display: flex;
+      flex-direction: row;
+      position: absolute;text-align: center; font-size: 25px; font-weight: bold;"
+      >
+      Custom Flashcard Generation Using AI
+      
+      </div>
+      <!-- <div style="margin: 0 auto;
+      width: auto;
+      margin-right: 1%;
+      /* width: 100%; */
+      /* height: 47px; */
+      background-color: rgb(180, 95, 6);;
+      border-radius: 22%;
+      padding: 0.5%;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      font-weight: bold;" onclick="redirectToURL('/FlashCards_Demo/page5/')">
+      How it Works ?
+        <div>
+          <script>
+            function redirectToURL(url) {
+              window.location.href = url;
+            }
+          </script>
+      </div>
+      </div> -->
+    </div>
+</div>
+    
+    <div class="md-container" data-md-component="container">
+      <a class="left-arrow" style="margin-top: 24%;" href="/FlashCards_Demo/page4/">
+        &lt;
+       </a>
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+                <div class="md-sidebar__scrollwrap" style="height: auto;">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+            <body>
+            <div id="page1" class="md-content-flashcard" data-md-component="content">
+              <article class="md-content__inner md-typeset" style="margin-top: 3%;">
+                <!-- <a id="prevPage" href="/FlashCards_Demo/page3/">Previous</a>
+                <a id="nextPage" style="float: right;" href="/FlashCards_Demo/page5/">Next</a> -->
+                <div id="selectiondiv" style="display: none; flex-direction: row; justify-content: space-between; margin: 2% 10%;">
+                  <div>
+                  <span style="font-weight: bold; font-size: 20px;">Contrast</span>
+                  <select id="dropdown1" onchange="updateInput()">
+                    <option value="maximal" selected>maximal</option>
+                    <!-- <option value="minimal">minimal</option> -->
+                  </select>
+                  </div>
+                  <div>
+                  <span style="font-weight: bold; font-size: 20px;">Location</span>
+                  <select id="dropdown2" onchange="updateInput()">
+                      <option value="initial" selected>initial</option>
+                      <!-- <option value="medial">medial</option> -->
+                      <option value="final">final</option>
+                  </select>
+                </div>
+                <div>
+                  <span style="font-weight: bold; font-size: 20px;">Sound</span>
+                  <select id="dropdown3" onchange="updateInput()">
+                      <option value="/s/">/s/</option>
+                      <option value="/l/" selected>/l/</option>
+                      <option value="/r/">/r/</option>
+                      <!-- <option value="/f/">/f/</option>
+                      <option value="/p/">/p/</option>
+                      <option value="/t/">/t/</option> -->
+                  </select>
+                </div>
+                </div>
+                <div class="gradio-box-2">
+                  <textarea rows="2" id= "gradiotext" type="text" class="text-input-2" placeholder="">Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /l/
+                 </textarea>
+                 <button id="getData" class="create-button">Create</button>
+                </div>
+               
+                 
+
+                <script src="../assets/javascripts/script.js"></script>
+                <!-- <input id= "gradiotext" type="text" class="styledInput" placeholder="Enter your data">
+                  <div><button id="getData" class="styledButton">Get Data</button></div>
+                  <div id="result" class="resultContainer">
+                    <div id="imageContainer" class="imageContainer"></div>
+                  </div> -->
+                <!-- <div id="result" class="resultContainer">
+                  <div id="imageContainer" class="imageContainer"></div>
+                </div> -->
+                
+                <div class="gradio-container">
+                  <div id = "img-template" class="gradio-box-main-container">
+                    <img src="../assets/images/demoimage1.png" style="height: 300px;
+                    display: block;
+                    padding: 10%;
+                    border-radius: 18%;
+                    margin: 0;" id = "first-card" class="gradio-box-main"/>
+                    <div id="flashcard-first-title" class="flashcard-title">log</div>
+                  </div>
+              
+            <div class="table-heading">
+              <div class="heading-1">Words</div>
+              <div class="heading-2">
+                <div id="placeholder-card-1-name">
+                  log
+                </div>
+                <div id="placeholder-card-2-name">
+                  dog
+                </div>
+              </div>
+              <div class="heading-3">
+                <div id="placeholder-card-1-ipa">
+                  log
+                </div>
+                <div id="placeholder-card-2-ipa">
+                  dog
+                </div>
+              </div>
+              <div class="heading-4">Sound Characteristics</div>
+              <div class="heading-5">
+                <div id="placeholder-card-1-phoneme" style="width: 30%; text-align: left;">
+                  /l/
+                </div>
+                <div><span style="color: transparent;
+                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                <div style="font-weight: bold; width: 30%; text-align: center;">
+                  Phoneme
+                </div>
+                <div><span style="color: transparent;
+                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                <div id="placeholder-card-2-phoneme" style="width: 30%; text-align: right;">
+                  /d/
+                </div>
+              </div>
+              <div id="place-header" class="heading-6">
+                <div style="width: 30%; text-align: left;" id="placeholder-card-1-place">
+                  alveolar
+                </div>
+                <div><span id="place-dot-left" style="color: transparent;
+                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                <div style="font-weight: bold; width: 30%; text-align: center;">
+                  Place
+                </div>
+                <div><span id="place-dot-right" style="color: transparent;
+                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                <div style="width: 30%; text-align: right;" id="placeholder-card-2-place">
+                  alveolar
+                </div>
+              </div>
+              <div id="voice-header"  class="heading-7">
+                <div style="width: 30%; text-align: left;" id="placeholder-card-1-voicing">
+                  voiced
+                </div>
+                <div><span id="voice-dot-left" style="color: transparent;
+                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                <div style="font-weight: bold; width: 30%; text-align: center;">
+                  
+                  Voicing
+                </div>
+                <div><span id="voice-dot-right" style="color: transparent;
+                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                <div style="width: 30%; text-align: right;" id="placeholder-card-2-voicing">
+                  voiced
+                </div>
+              </div>
+              <div id="manner-header"  class="heading-8">
+                <div style="width: 30%; text-align: left;" id="placeholder-card-1-manner">
+                  liquid
+                </div>
+                <div><span id="manner-dot-left" style="color: transparent;
+                  text-shadow: 0 0 0 #9d0a0a">&#9899;</span></div>
+                <div style="font-weight: bold; width: 30%; text-align: center;">
+                  Manner
+                </div>
+                <div><span id="manner-dot-right" style="color: transparent;
+                  text-shadow: 0 0 0 #9d0a0a">&#9899;</span></div>
+                <div style="width: 30%; text-align: right;" id="placeholder-card-2-manner">
+                  stop
+                </div>
+              </div>
+            </div>
+            <script src="image2.json"></script>
+                <div id = "img-template" class="gradio-box-main-container">
+                  <img src="../assets/images/demoimage2.png" style="height: 300px;
+                  display: block;
+                  padding: 10%;
+                  border-radius: 18%;
+                  margin: 0;" id = "second-card" class="gradio-box-main"/>
+                  <div id="flashcard-second-title" class="flashcard-title">dog</div>
+                </div>
+              </div>
+              <!-- <div style="display: none;" class="explanation-div" id="explanation-div">
+                <h1 id="explanation-text"></h1>
+              </div> -->
+              <div style="display: none; flex-direction: row; justify-content: space-between; margin-left: 2%; margin-top: 0%;" class="switch-div">
+                <label class="switch" style="margin:0px;">
+                  <input id="toggle-button" type="checkbox" class="switch-input">
+                      <span class="switch-label" data-on="On" data-off="Off"></span>
+                      <span class="switch-handle"></span>
+              </label>
+              <div class="api-error-overlay" id="overlay"></div>
+
+            <div class="api-error-popup" id="popup">
+                <span class="api-error-close-btn" onclick="closePopup()">×</span>
+                <p>Please try again</p>
+            </div>
+              <script>
+                
+                      
+                      
+                      function getData() {
+                              var button = document.getElementById("getData");
+                              button.disabled = true; // Disable the button
+                              button.classList.add("inactive"); // Add 'inactive' class
+                              button.innerHTML = "Loading..."; // Change text to "Loading..."
+                              const apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://500b-2620-cc-8000-e0d-1623-f2ff-fecd-3fb0.ngrok-free.app/generate/');
+                              const inputValue = document.getElementById('gradiotext').value;
+
+                              const apiUrlWithParam = `${apiUrl}${inputValue}`;
+                              console.log('apiwithurl is ', apiUrlWithParam)
+
+                              const headers = new Headers({
+                                  'Accept': 'application/json', // Specify that you expect JSON in the response
+                                  'Content-Type': 'application/json',                                
+                                  "Access-Control-Allow-Origin": "*",
+                                  "Origin": window.location.origin,
+                                  "ngrok-skip-browser-warning": "69420",
+                              });
+
+                              const options = {
+                                  method: 'GET',
+                                  headers: headers,
+                              };
+                              
+
+                              
+                              fetch(apiUrlWithParam, options)
+                                  .then(response => {
+                                    
+                                      if (!response.ok) {
+                                        displayPopup();
+                                        console.log(response)
+                                        console.log(response.ok)
+                                          throw new Error('Network response was not ok');
+                                          button.disabled = false;
+                                          button.classList.remove("inactive"); // Remove 'inactive' class
+                                          button.innerHTML = "Create";
+                                          button.style.backgroundColor = '#FFA500'
+                                      }
+                                      return response.json(); // Parse the response body as JSON
+                                  })
+                                  .then(data => {
+                                    console.log(data)
+                                    button.disabled = false;
+                                    button.classList.remove("inactive"); // Remove 'inactive' class
+                                    button.innerHTML = "Create";
+                                    button.style.backgroundColor = '#FFA500'
+                                      // Handle the data
+                                      displayData(data);
+                                  })
+                                  .catch(error => {
+                                      // Handle errors
+                                      button.disabled = false;
+                                      button.classList.remove("inactive"); // Remove 'inactive' class
+                                      button.innerHTML = "Create";
+                                      button.style.backgroundColor = '#FFA500'
+                                      console.error('Error:', error);
+                                  });
+                          }
+                         
+                          const getDataButton = document.getElementById('getData');
+
+                          getDataButton.addEventListener('click', getData);
+                            
+                          
+                          function displayData(data) {
+                          const contrast = document.getElementById('dropdown1').value;
+                          const location = document.getElementById('dropdown2').value;
+                          const sound = document.getElementById('dropdown3').value;
+                          
+                          const firstcard = document.getElementById('first-card');
+                          const secondcard = document.getElementById('second-card');
+                          const firstcardtitle = document.getElementById('flashcard-first-title');
+                          const secondcardtitle = document.getElementById('flashcard-second-title');
+                          const table = document.getElementById("card-details-table");
+                          const card1name = document.getElementById("placeholder-card-1-name");
+                          const card2name = document.getElementById("placeholder-card-2-name");
+                          const card1phonetic = document.getElementById("placeholder-card-1-ipa");
+                          const card2phonetic = document.getElementById("placeholder-card-2-ipa");
+                          const card1place = document.getElementById("placeholder-card-1-place");
+                          const card2place = document.getElementById("placeholder-card-2-place");
+                          const card1voice = document.getElementById("placeholder-card-1-voicing");
+                          const card2voice = document.getElementById("placeholder-card-2-voicing");
+                          const card1manner = document.getElementById("placeholder-card-1-manner");
+                          const card2manner = document.getElementById("placeholder-card-2-manner");
+                          const cardplaceheader = document.getElementById("place-header");
+                          const cardvoiceheader = document.getElementById("voice-header");
+                          const cardmannerheader = document.getElementById("manner-header");
+                          const explanation = document.getElementById("explanation-div");
+                          // const explanationdiv = document.getElementById("explanation-div");
+                          const gradioboxmain = document.getElementById("img-template");
+                          const card1phoneme = document.getElementById("placeholder-card-1-phoneme");
+                          const card2phoneme = document.getElementById("placeholder-card-2-phoneme");
+                          firstcard.style.display = 'block'
+                          secondcard.style.display = 'block'
+                          // console.log('img 1 src is ' + Finaltem.pair.item1.b64_image)
+                          firstcard.src = 'data:image/png;base64,' + data.pair.item1.b64_image;
+                          secondcard.src = 'data:image/png;base64,' + data.pair.item2.b64_image;
+                          // table.style.display = 'inline'
+                          firstcardtitle.innerText = data.pair.item1.word
+                          secondcardtitle.innerText = data.pair.item2.word
+                          card1name.innerText = data.pair.item1.word
+                          card2name.innerText = data.pair.item2.word
+                          card1phonetic.innerText = data.pair.item1.ipa
+                          card2phonetic.innerText = data.pair.item2.ipa
+                          card1place.innerText = data.pair.item1.place
+                          card2place.innerText = data.pair.item2.place
+                          card1voice.innerText = data.pair.item1.voicing
+                          card2voice.innerText = data.pair.item2.voicing
+                          card1manner.innerText = data.pair.item1.manner
+                          card2manner.innerText = data.pair.item2.manner
+                          card1phoneme.innerText = '/' + data.pair.item1.sound + '/'
+                          card2phoneme.innerText = '/' + data.pair.item2.sound + '/'
+                          // explanationdiv.style.display = 'block'
+                          explanation.innerText = data.explanation
+                          gradioboxmain.style.height = 'auto'
+                }
+                  
+                  
+                      
+
+              
+                
+
+              </script>
+              </div>
+                  </div>
+                  <div style="width: 7%; margin-left: 6%;">
+                    <img src="../assets/images/live-button.png"/>
+                  </div>
+                  <!-- <label class="switch" style="margin-left: 6%;">
+                    <input id="toggle-button" type="checkbox" class="switch-input" checked>
+                        <span class="switch-label" data-on="Live"></span>
+                        <span class="switch-handle"></span>
+                  </label>
+                  <script>
+                    document.getElementById('toggle-button').checked = true;
+                  </script> -->
+                
+                  <div  style="margin-left: 80%; width: 15%; margin-top: -4%;">
+                    <img onclick="explationationnpopup()" src="../assets/images/explanation-pic.png"/>
+                  </div> 
+              </div>
+              
+</article>
+<a class="right-arrow-page-4" href="/FlashCards_Demo/page6/">
+  &gt;
+ </a>
+</div>
+<!-- <div  style="margin-left: 78%; width: 15%;">
+  <img onclick="explationationnpopup()" src="../assets/images/explanation-pic.png"/>
+</div> -->
+<div class="api-error-overlay" id="explanation-overlay">
+  
+  <div style="   margin-top: 52%;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: #fff2cc;
+  padding: 1%;
+  margin: 1px 1px 1px 1px white;
+  border-color: white;
+  box-shadow: 0px 0px 0px 10px white inset;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  ">
+  <div class="api-error-popup-page2" id="explanation-popup">
+    <span class="api-error-close-btn-page2 " onclick="closeexplanationPopup()">×</span>
+    
+  </div>
+  <div style="font-size: 22px;margin: 0 auto; padding: 4%;" id="explanation-div" >These words have maximally opposing initial sounds because the manner of articulation for /l/ is liquid, and for /d/, it is a stop.</div>
+  </div>
+</div>
+<script>
+  function explationationnpopup() {
+      var overlay = document.getElementById('explanation-overlay');
+      var popup = document.getElementById('explanation-popup');
+
+      overlay.style.display = 'block';
+      popup.style.display = 'block';
+      overlay.style.opacity = 1;
+  }
+
+  function closeexplanationPopup() {
+      var overlay = document.getElementById('explanation-overlay');
+      var popup = document.getElementById('explanation-popup');
+
+      overlay.style.display = 'none';
+      overlay.style.opacity = 0;
+      popup.style.display = 'none';
+  }
+</script>
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+          </body>
+        </div>
+      </main>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant"], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.78eede0e.min.js"></script>
+      
+        <!-- <script src="../assets/js/custom_scroll.js"></script> -->
+      
+    
+  </body>
+</html>
