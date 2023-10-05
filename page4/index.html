@@ -103,9 +103,9 @@
 </div>
     
     <div class="md-container" data-md-component="container">
-      <a class="left-arrow" style="margin-top: 24%;" href="/Flashcard_Demo/page3/">
+      <!-- <a class="left-arrow" style="margin-top: 24%;" href="/FlashCards_Demo/page3/">
         &lt;
-       </a>
+       </a> -->
       
       
         
@@ -144,8 +144,12 @@
             <body>
             <div id="page1" class="md-content-flashcard" data-md-component="content">
               <article class="md-content__inner md-typeset">
-                <!-- <a id="prevPage" href="/Flashcard_Demo/page3/">Previous</a>
-                <a id="nextPage" style="float: right;" href="/Flashcard_Demo/page5/">Next</a> -->
+                <a id="prevPage" href="/FlashCards_Demo/page3/">Previous</a>
+                <a id="nextPage" style="float: right;" href="/FlashCards_Demo/page5/">Next</a>
+                <!-- <div class="button-container-nav">
+                  <a href="/FlashCards_Demo/page3/" class="button-nav previous-nav">Previous</a>
+                  <a href="/FlashCards_Demo/page5/" class="button-nav next-nav">Next</a>
+                </div> -->
                 <div id="selectiondiv" style="display: flex; flex-direction: row; justify-content: space-between; margin: 2% 10%;">
                   <div>
                   <span style="font-weight: bold; font-size: 20px;">Contrast</span>
@@ -515,22 +519,22 @@
               </script>
               </div>
                   </div>
-                  <div  style="margin-left: 83%; width: 15%; margin-top: -3%;">
+                  <div  style="margin-left: 83%; width: 15%; margin-top: -5%;">
                     <img onclick="explationationnpopup()" src="../assets/images/explanation-pic.png"/>
                   </div> 
               </div>
               
                     
 </article>
-<a class="right-arrow-page-4" href="/Flashcard_Demo/page5/">
+<!-- <a class="right-arrow-page-4" href="/FlashCards_Demo/page5/">
   &gt;
- </a>
+ </a> -->
  
 </div>
 
 <div class="api-error-overlay" id="explanation-overlay">
   
-  <div style="   margin-top: 47%;
+  <div style="   margin-top: 25%;
   margin-left: 20%;
   margin-right: 20%;
   background-color: #fff2cc;
@@ -542,7 +546,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  ">
+  " class="api-error-overlay-main-class">
   <div class="api-error-popup-page2" id="explanation-popup">
     <span class="api-error-close-btn-page2 " onclick="closeexplanationPopup()">×</span>
     
