@@ -425,6 +425,12 @@
                           const gradioboxmain = document.getElementById("img-template");
                           const card1phoneme = document.getElementById("placeholder-card-1-phoneme");
                           const card2phoneme = document.getElementById("placeholder-card-2-phoneme");
+                          const placedotleft = document.getElementById("place-dot-left")
+                          const voicedotleft = document.getElementById("voice-dot-left")
+                          const mannerdotleft = document.getElementById("manner-dot-left")
+                          const placedotright = document.getElementById("place-dot-right")
+                          const voicedotright = document.getElementById("voice-dot-right")
+                          const mannerdotright = document.getElementById("manner-dot-right")
                           firstcard.style.display = 'block'
                           secondcard.style.display = 'block'
                           // console.log('img 1 src is ' + Finaltem.pair.item1.b64_image)
@@ -448,6 +454,35 @@
                           // explanationdiv.style.display = 'block'
                           explanation.innerText = data.explanation
                           gradioboxmain.style.height = 'auto'
+                          if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
+                          // cardvoiceheader.style.backgroundColor = 'lightblue';
+                          // cardvoiceheader.style.borderRadius = '5px';
+                          voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                          voicedotright.style.textShadow = '0 0 0 #9d0a0a';
+                          
+                          } else {
+                            voicedotleft.style.textShadow = '0 0 0 white';
+                            voicedotright.style.textShadow = '0 0 0 white';
+                          }
+                          // check diff manner
+                          if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
+                            mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
+                            mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
+
+                              
+                          } else {
+                            mannerdotleft.style.textShadow = '0 0 0 white';
+                            mannerdotright.style.textShadow = '0 0 0 white';
+                          }
+                          // check diff place
+                          if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place ){
+                            placedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                            placedotright.style.textShadow = '0 0 0 #9d0a0a';
+                              
+                          } else {
+                            placedotleft.style.textShadow = '0 0 0 white';
+                            placedotright.style.textShadow = '0 0 0 white';
+                          }
                 }
                   
                   
