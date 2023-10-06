@@ -454,7 +454,7 @@
                           // explanationdiv.style.display = 'block'
                           explanation.innerText = data.explanation
                           gradioboxmain.style.height = 'auto'
-                          if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
+                          if (data.pair.item1.voicing !== data.pair.item2.voicing ){
                           // cardvoiceheader.style.backgroundColor = 'lightblue';
                           // cardvoiceheader.style.borderRadius = '5px';
                           voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
@@ -465,7 +465,7 @@
                             voicedotright.style.textShadow = '0 0 0 white';
                           }
                           // check diff manner
-                          if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
+                          if (data.pair.item1.manner !== data.pair.item2.manner ){
                             mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
                             mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
 
@@ -475,7 +475,7 @@
                             mannerdotright.style.textShadow = '0 0 0 white';
                           }
                           // check diff place
-                          if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place ){
+                          if (data.pair.item1.place !== data.pair.item2.place ){
                             placedotleft.style.textShadow = '0 0 0 #9d0a0a';
                             placedotright.style.textShadow = '0 0 0 #9d0a0a';
                               
