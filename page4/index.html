@@ -168,13 +168,12 @@
                       <!-- <option value="minimal">minimal</option> -->
                     </select>
                   </div>
-                  <div>
+                  <!-- <div>
                   <span style="font-weight: bold; font-size: 20px;">Contrast</span>
                   <select id="dropdown1" onchange="updateInput()">
                     <option value="maximal" selected>maximal</option>
-                    <!-- <option value="minimal">minimal</option> -->
                   </select>
-                  </div>
+                  </div> -->
                   <div>
                   <span style="font-weight: bold; font-size: 20px;">Location</span>
                   <select id="dropdown2" onchange="updateInput()">
@@ -204,12 +203,12 @@
                 <script>
 
                   function updateInput() {
-                      const selected1 = document.getElementById('dropdown1').value;
+                      // const selected1 = document.getElementById('dropdown1').value;
                       const selected2 = document.getElementById('dropdown2').value;
                       const selected3 = document.getElementById('dropdown3').value;
                       const modelselected = document.getElementById('dropdown4').value
                       const inputField = document.getElementById('gradiotext');
-                      inputField.value = `Generate a pair of words with ${selected1}ly contrasting phonemes that differ at the ${selected2} sound and one of the sounds is ${selected3}`;
+                      inputField.value = `Generate a pair of words with maximally contrasting phonemes that differ at the ${selected2} sound and one of the sounds is ${selected3}`;
                   }
               </script>
                   <script>document.getElementById("getData").click();</script>
@@ -415,7 +414,7 @@
                       
                       function getDalleCannedresponseNew() {
                         
-                      const contrast = document.getElementById('dropdown1').value;
+                      // const contrast = document.getElementById('dropdown1').value;
                       const location = document.getElementById('dropdown2').value;
                       const sound = document.getElementById('dropdown3').value;
                       // console.log('location is ' + location)
@@ -524,8 +523,16 @@
                       card2voice.innerText = Finaltem.pair.item2.voicing
                       card1manner.innerText = Finaltem.pair.item1.manner
                       card2manner.innerText = Finaltem.pair.item2.manner
-                      card1phoneme.innerText = '/' + Finaltem.pair.item1.sound + '/'
-                      card2phoneme.innerText = '/' + Finaltem.pair.item2.sound + '/'
+                      // Finaltem.pair.item1.sound.replace(/\//g, '')
+                      // Finaltem.pair.item2.sound.replace(/\//g, '')
+                      // if (Finaltem.pair.item1.sound.startsWith('/') && Finaltem.pair.item1.sound.endsWith('/')) {
+                      //   Finaltem.pair.item1.sound = Finaltem.pair.item1.sound.slice(2, -2);
+                      // }
+                      // if (Finaltem.pair.item2.sound.startsWith('/') && Finaltem.pair.item2.sound.endsWith('/')) {
+                      //   Finaltem.pair.item2.sound = Finaltem.pair.item2.sound.slice(2, -2);
+                      // }
+                      card1phoneme.innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/'
+                      card2phoneme.innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/'
                       // explanationdiv.style.display = 'block'
                       if (Finaltem.hasOwnProperty('explanation')){
                       explanation.innerText = Finaltem.explanation
@@ -574,7 +581,7 @@
 
                       function getCannedresponseNew() {
                         console.log('in canned response function')
-                      const contrast = document.getElementById('dropdown1').value;
+                      // const contrast = document.getElementById('dropdown1').value;
                       const location = document.getElementById('dropdown2').value;
                       const sound = document.getElementById('dropdown3').value;
                       // console.log('location is ' + location)
@@ -683,8 +690,16 @@
                       card2voice.innerText = Finaltem.pair.item2.voicing
                       card1manner.innerText = Finaltem.pair.item1.manner
                       card2manner.innerText = Finaltem.pair.item2.manner
-                      card1phoneme.innerText = '/' + Finaltem.pair.item1.sound + '/'
-                      card2phoneme.innerText = '/' + Finaltem.pair.item2.sound + '/'
+                      // Finaltem.pair.item1.sound.replace(/\//g, '')
+                      // Finaltem.pair.item2.sound.replace(/\//g, '')
+                      // if (Finaltem.pair.item1.sound.startsWith('/') && Finaltem.pair.item1.sound.endsWith('/')) {
+                      //   Finaltem.pair.item1.sound = Finaltem.pair.item1.sound.slice(2, -2);
+                      // }
+                      // if (Finaltem.pair.item2.sound.startsWith('/') && Finaltem.pair.item2.sound.endsWith('/')) {
+                      //   Finaltem.pair.item2.sound = Finaltem.pair.item2.sound.slice(2, -2);
+                      // }
+                      card1phoneme.innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/'
+                      card2phoneme.innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/'
                       // explanationdiv.style.display = 'block'
                       // explanation.innerText = Finaltem.explanation
                       
