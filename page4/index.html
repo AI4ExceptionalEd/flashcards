@@ -186,8 +186,8 @@
                   <span style="font-weight: bold; font-size: 20px;">Sound</span>
                   <select id="dropdown3" onchange="updateInput()">
                       <option value="/s/">/s/</option>
-                      <option value="/l/" selected>/l/</option>
-                      <option value="/r/">/r/</option>
+                      <option value="/l/">/l/</option>
+                      <option value="/r/" selected>/r/</option>
                       <!-- <option value="/f/">/f/</option>
                       <option value="/p/">/p/</option>
                       <option value="/t/">/t/</option> -->
@@ -195,7 +195,7 @@
                 </div>
                 </div>
                 <div class="gradio-box">
-                  <textarea rows="2" id= "gradiotext" type="text" class="text-input" placeholder="Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is \l\" readonly>Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /l/
+                  <textarea rows="2" id= "gradiotext" type="text" class="text-input" placeholder="Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is \l\" readonly>Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /r/
                  </textarea>
                  <button id="getData" class="create-button">Create</button>
                 </div>
@@ -225,7 +225,7 @@
                 
                 <div class="gradio-container">
                   <div id = "img-template" class="gradio-box-main-container">
-                    <img src="../assets/images/demoimage1.png" style="height: 300px;
+                    <img src="../assets/images/rake.png" style="height: 300px;
                     display: block;
                     padding: 10%;
                     border-radius: 18%;
@@ -254,7 +254,7 @@
               <div class="heading-4">Sound Characteristics</div>
               <div class="heading-5">
                 <div id="placeholder-card-1-phoneme" style="width: 30%; text-align: left;">
-                  /l/
+                  /r/
                 </div>
                 <div><span style="color: transparent;
                   text-shadow: 0 0 0 white">&#9899;</span></div>
@@ -264,7 +264,7 @@
                 <div><span style="color: transparent;
                   text-shadow: 0 0 0 white">&#9899;</span></div>
                 <div id="placeholder-card-2-phoneme" style="width: 30%; text-align: right;">
-                  /d/
+                  /k/
                 </div>
               </div>
               <div id="place-header" class="heading-6">
@@ -272,14 +272,14 @@
                   alveolar
                 </div>
                 <div><span id="place-dot-left" style="color: transparent;
-                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                  text-shadow: 0 0 0 #9d0a0a">&#9899;</span></div>
                 <div style="font-weight: bold; width: 30%; text-align: center;">
                   Place
                 </div>
                 <div><span id="place-dot-right" style="color: transparent;
-                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                  text-shadow: 0 0 0 #9d0a0a">&#9899;</span></div>
                 <div style="width: 30%; text-align: right;" id="placeholder-card-2-place">
-                  alveolar
+                  velar
                 </div>
               </div>
               <div id="voice-header"  class="heading-7">
@@ -287,20 +287,20 @@
                   voiced
                 </div>
                 <div><span id="voice-dot-left" style="color: transparent;
-                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                  text-shadow: 0 0 0 #9d0a0a">&#9899;</span></div>
                 <div style="font-weight: bold; width: 30%; text-align: center;">
                   
                   Voicing
                 </div>
                 <div><span id="voice-dot-right" style="color: transparent;
-                  text-shadow: 0 0 0 white">&#9899;</span></div>
+                  text-shadow: 0 0 0 #9d0a0a">&#9899;</span></div>
                 <div style="width: 30%; text-align: right;" id="placeholder-card-2-voicing">
-                  voiced
+                  voiceless
                 </div>
               </div>
               <div id="manner-header"  class="heading-8">
                 <div style="width: 30%; text-align: left;" id="placeholder-card-1-manner">
-                  liquid
+                  approximant
                 </div>
                 <div><span id="manner-dot-left" style="color: transparent;
                   text-shadow: 0 0 0 #9d0a0a">&#9899;</span></div>
@@ -316,7 +316,7 @@
             </div>
             <script src="image2.json"></script>
                 <div id = "img-template" class="gradio-box-main-container">
-                  <img src="../assets/images/demoimage2.png" style="height: 300px;
+                  <img src="../assets/images/cake.png" style="height: 300px;
                   display: block;
                   padding: 10%;
                   border-radius: 18%;
@@ -780,7 +780,7 @@
     <span class="api-error-close-btn-page2 " onclick="closeexplanationPopup()">×</span>
     
   </div>
-  <div style="font-size: 22px;margin: 0 auto; padding: 4%;" id="explanation-div" >These words have maximally opposing initial sounds because the manner of articulation for /l/ is liquid, and for /d/, it is a stop.</div>
+  <div style="font-size: 22px;margin: 0 auto; padding: 4%;" id="explanation-div" >These words are contrasting maximally because the place of articulation (alveolar vs velar), manner of articulation (approximant vs stop), and voicing (voiced vs voiceless) are all different.</div>
   </div>
 </div>
 
