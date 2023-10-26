@@ -52,6 +52,7 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     <script src="cached.js"></script>
     <script src="dalle3.js"></script>
+    <script src="minimal_pairs.js"></script>
       
 
     
@@ -152,19 +153,19 @@
                   <a href="/FlashCards_Demo/page5/" class="button-nav next-nav">Next</a>
                 </div> -->
                 <div id="selectiondiv" style="display: flex; flex-direction: row; justify-content: space-between; margin: 2% 10%;">
-                  <div>
+                  <!-- <div>
                     <span style="font-weight: bold; font-size: 20px;">Model</span>
                     <select id="dropdown4" onchange="updateInput()">
                       <option value="dalle" >Dalle-3</option>
                       <option value="sdxl" selected>SDXL</option>
-                      <!-- <option value="minimal">minimal</option> -->
+                      
                     </select>
-                  </div>
+                  </div> -->
                   <div>
                     <span style="font-weight: bold; font-size: 20px;">Illustration Style</span>
-                    <select id="dropdown4" onchange="updateInput()">
-                      <option value="dalle" >Photorealistic</option>
-                      <option value="sdxl" selected>Children Playbook</option>
+                    <select id="dropdown5" onchange="updateInput()">
+                      <option value="photorealistic" >Photorealistic</option>
+                      <option value="childrenplaybook" selected>Children Playbook</option>
                       <!-- <option value="minimal">minimal</option> -->
                     </select>
                   </div>
@@ -206,7 +207,8 @@
                       // const selected1 = document.getElementById('dropdown1').value;
                       const selected2 = document.getElementById('dropdown2').value;
                       const selected3 = document.getElementById('dropdown3').value;
-                      const modelselected = document.getElementById('dropdown4').value
+                      // const modelselected = document.getElementById('dropdown4').value
+                      const styleselected = document.getElementById('dropdown5').value
                       const inputField = document.getElementById('gradiotext');
                       inputField.value = `Generate a pair of words with maximally contrasting phonemes that differ at the ${selected2} sound and one of the sounds is ${selected3}`;
                   }
@@ -245,10 +247,10 @@
               </div>
               <div class="heading-3">
                 <div id="placeholder-card-1-ipa">
-                  rake
+                  reɪk
                 </div>
                 <div id="placeholder-card-2-ipa">
-                  cake
+                  keɪk
                 </div>
               </div>
               <div class="heading-4">Sound Characteristics</div>
@@ -369,6 +371,21 @@
                 var final_l_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', '/l/');
                 var final_r_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', '/r/');
 
+                // SDXL photorealistic variables
+
+                var initial_s_sound_counter_sdxl_realistic = 0
+                var initial_l_sound_counter_sdxl_realistic = 0
+                var initial_r_sound_counter_sdxl_realistic = 0
+                var final_s_sound_counter_sdxl_realistic = 0
+                var final_l_sound_counter_sdxl_realistic = 0
+                var final_r_sound_counter_sdxl_realistic = 0
+                var initial_s_sound_sdxl_realistic = filterSDXLDataByLocationAndSound(realisticsdxl, 'initial', 's');
+                var initial_l_sound_sdxl_realistic = filterSDXLDataByLocationAndSound(realisticsdxl, 'initial', 'l');
+                var initial_r_sound_sdxl_realistic = filterSDXLDataByLocationAndSound(realisticsdxl, 'initial', 'r');
+                var final_s_sound_sdxl_realistic = filterSDXLDataByLocationAndSound(realisticsdxl, 'final', 's');
+                var final_l_sound_sdxl_realistic = filterSDXLDataByLocationAndSound(realisticsdxl, 'final', 'l');
+                var final_r_sound_sdxl_realistic = filterSDXLDataByLocationAndSound(realisticsdxl, 'final', 'r');
+
                 function displayPopup() {
                   var overlay = document.getElementById('overlay');
                   var popup = document.getElementById('popup');
@@ -397,20 +414,204 @@
                 return dalledata.filter(item => item.location === inputLocation && item.sound === inputSound);
             }
 
+            function filterSDXLDataByLocationAndSound(data, inputLocation, inputSound) {
+                console.log('realisticsdxl is ' + realisticsdxl)
+                return realisticsdxl.filter(item => item.location === inputLocation && item.sound === inputSound);
+            }
+
                 function checkModel() {
                   console.log('in check model function')
-                  const modelselected = document.getElementById('dropdown4').value;
-                  console.log('model selected is ' + modelselected)
-                  if (modelselected === "dalle" ) {
-                    getDalleCannedresponseNew()
-                  }
-                  else if (modelselected === "sdxl") {
+                  // const modelselected = document.getElementById('dropdown4').value;
+                  const styleselected = document.getElementById('dropdown5').value;
+                  
+                  // console.log('model selected is ' + modelselected)
+                  console.log('style selected is ' + styleselected)
+                  // if (modelselected === "dalle" ) {
+                  //   getDalleCannedresponseNew()
+                  // }
+                  // else if (modelselected === "sdxl" && styleselected === "childrenplaybook") {
+                  //   console.log('called older json')
+                  //   getCannedresponseNew()
+                  // } else if (modelselected === "sdxl" && styleselected === "photorealistic") {
+                  //   getSDXLrealistic()
+                  // }
+                  if (styleselected === "childrenplaybook") {
+                    console.log('called older json')
                     getCannedresponseNew()
+                  } else if (styleselected === "photorealistic") {
+                    getSDXLrealistic()
                   }
                 }
 
                       document.getElementById("gradiotext").setAttribute("readonly", "readonly");
                       document.getElementById('getData').addEventListener('click', checkModel);
+
+                      function getSDXLrealistic() {
+                        console.log('calling sdxl realistic json function')
+                        // const contrast = document.getElementById('dropdown1').value;
+                        const location = document.getElementById('dropdown2').value;
+                        const sound = document.getElementById('dropdown3').value;
+                        // console.log('location is ' + location)
+                        // console.log('sound is ' + sound)
+                        
+                        // check input
+                        // var Finalitem = ["temp"]
+                        console.log('initial_l_sound_sdxl_realistic is ' + initial_l_sound_sdxl_realistic)
+                        console.log('initial_r_sound_sdxl_realistic is ' + initial_r_sound_sdxl_realistic)
+                        console.log('initial_s_sound_sdxl_realistic is ' + initial_s_sound_sdxl_realistic)
+                        if(location === 'initial' && sound.includes('l')) {
+                          Finaltem = initial_l_sound_sdxl_realistic[initial_l_sound_counter_sdxl_realistic]
+                          initial_l_sound_counter_sdxl_realistic += 1
+                          if(initial_l_sound_counter_sdxl_realistic == initial_l_sound_sdxl_realistic.length) {
+                            initial_l_sound_counter_sdxl_realistic = 0
+                          }
+                        }
+                        else if(location === 'final' && sound.includes('l')) {
+                          Finaltem = final_l_sound_sdxl_realistic[final_l_sound_counter_sdxl_realistic]
+                          final_l_sound_counter_sdxl_realistic += 1
+                          if(final_l_sound_counter_sdxl_realistic == final_l_sound_sdxl_realistic.length) {
+                            final_l_sound_counter_sdxl_realistic = 0
+                          }
+                        }
+                        else if(location === 'initial' && sound.includes('r')) {
+                          Finaltem = initial_r_sound_sdxl_realistic[initial_r_sound_counter_sdxl_realistic]
+                          initial_r_sound_counter_sdxl_realistic += 1
+                          if(initial_r_sound_counter_sdxl_realistic == initial_r_sound_sdxl_realistic.length) {
+                            initial_r_sound_counter_sdxl_realistic = 0
+                          }
+                        }
+                        else if(location === 'final' && sound.includes('r')) {
+                          Finaltem = final_r_sound_sdxl_realistic[final_r_sound_counter_sdxl_realistic]
+                          final_r_sound_counter_sdxl_realistic += 1
+                          if(final_r_sound_counter_sdxl_realistic == final_r_sound_sdxl_realistic.length) {
+                            final_r_sound_counter_sdxl_realistic = 0
+                          }
+                        }
+                        else if(location === 'initial' && sound.includes('s')) {
+                          Finaltem = initial_s_sound_sdxl_realistic[initial_s_sound_counter_sdxl_realistic]
+                          initial_s_sound_counter_sdxl_realistic += 1
+                          if(initial_s_sound_counter_sdxl_realistic == initial_s_sound_sdxl_realistic.length) {
+                            initial_s_sound_counter_sdxl_realistic = 0
+                          }
+                        }
+                        else if(location === 'final' && sound.includes('s')) {
+                          Finaltem = final_s_sound_sdxl_realistic[final_s_sound_counter_sdxl_realistic]
+                          final_s_sound_counter_sdxl_realistic += 1
+                          if(final_s_sound_counter_sdxl_realistic == final_s_sound_sdxl_realistic.length) {
+                            final_s_sound_counter_sdxl_realistic = 0
+                          }
+                        }
+                        console.log('final item after filtering is ' + Finaltem)
+                        
+                        //const randomItem = filterDataByLocationAndSound(data, location, sound);
+                        //const Finaltem = getRandomIndex(randomItem);
+  
+                        //console.log('len filter data is ' + (Finaltem.length))
+  
+                        //console.log('data 1 is ' + (Finaltem.pair.item1))
+                        
+                        const firstcard = document.getElementById('first-card');
+                        const secondcard = document.getElementById('second-card');
+                        const table = document.getElementById("card-details-table");
+                        const card1name = document.getElementById("placeholder-card-1-name");
+                        const card2name = document.getElementById("placeholder-card-2-name");
+                        const firstcardtitle = document.getElementById('flashcard-first-title');
+                        const secondcardtitle = document.getElementById('flashcard-second-title');
+                        const card1phonetic = document.getElementById("placeholder-card-1-ipa");
+                        const card2phonetic = document.getElementById("placeholder-card-2-ipa");
+                        const card1place = document.getElementById("placeholder-card-1-place");
+                        const card2place = document.getElementById("placeholder-card-2-place");
+                        const card1voice = document.getElementById("placeholder-card-1-voicing");
+                        const card2voice = document.getElementById("placeholder-card-2-voicing");
+                        const card1manner = document.getElementById("placeholder-card-1-manner");
+                        const card2manner = document.getElementById("placeholder-card-2-manner");
+                        const card1phoneme = document.getElementById("placeholder-card-1-phoneme");
+                        const card2phoneme = document.getElementById("placeholder-card-2-phoneme");
+                        const cardplaceheader = document.getElementById("place-header");
+                        const cardvoiceheader = document.getElementById("voice-header");
+                        const cardmannerheader = document.getElementById("manner-header");
+                        const explanation = document.getElementById("explanation-div");
+                        const explanationdiv = document.getElementById("explanation-div");
+                        const gradioboxmain = document.getElementById("img-template");
+                        const placedotleft = document.getElementById("place-dot-left")
+                        const voicedotleft = document.getElementById("voice-dot-left")
+                        const mannerdotleft = document.getElementById("manner-dot-left")
+                        const placedotright = document.getElementById("place-dot-right")
+                        const voicedotright = document.getElementById("voice-dot-right")
+                        const mannerdotright = document.getElementById("manner-dot-right")
+                        firstcard.style.display = 'block'
+                        secondcard.style.display = 'block'
+                        // console.log('img 1 src is ' + Finaltem.pair.item1.b64_image)
+                        console.log('final item is ' + Finaltem)
+                        console.log(Object.keys(Finaltem).length)
+                        firstcard.src = './sdxl_realistic/'+Finaltem.pair.item1.b64_image;
+                        secondcard.src = './sdxl_realistic/'+Finaltem.pair.item2.b64_image;
+                        // table.style.display = 'inline'
+                        firstcardtitle.innerText = Finaltem.pair.item1.word
+                        secondcardtitle.innerText = Finaltem.pair.item2.word
+                        card1name.innerText = Finaltem.pair.item1.word
+                        card2name.innerText = Finaltem.pair.item2.word
+                        card1phonetic.innerText = Finaltem.pair.item1.ipa
+                        card2phonetic.innerText = Finaltem.pair.item2.ipa
+                        card1place.innerText = Finaltem.pair.item1.place
+                        card2place.innerText = Finaltem.pair.item2.place
+                        card1voice.innerText = Finaltem.pair.item1.voicing
+                        card2voice.innerText = Finaltem.pair.item2.voicing
+                        card1manner.innerText = Finaltem.pair.item1.manner
+                        card2manner.innerText = Finaltem.pair.item2.manner
+                        // Finaltem.pair.item1.sound.replace(/\//g, '')
+                        // Finaltem.pair.item2.sound.replace(/\//g, '')
+                        // if (Finaltem.pair.item1.sound.startsWith('/') && Finaltem.pair.item1.sound.endsWith('/')) {
+                        //   Finaltem.pair.item1.sound = Finaltem.pair.item1.sound.slice(2, -2);
+                        // }
+                        // if (Finaltem.pair.item2.sound.startsWith('/') && Finaltem.pair.item2.sound.endsWith('/')) {
+                        //   Finaltem.pair.item2.sound = Finaltem.pair.item2.sound.slice(2, -2);
+                        // }
+                        card1phoneme.innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/'
+                        card2phoneme.innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/'
+                        // explanationdiv.style.display = 'block'
+                        if (Finaltem.hasOwnProperty('explanation')){
+                        explanation.innerText = Finaltem.explanation
+                        }
+                        gradioboxmain.style.height = 'auto'
+  
+                        if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
+                            // cardvoiceheader.style.backgroundColor = 'lightblue';
+                            // cardvoiceheader.style.borderRadius = '5px';
+                            voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                            voicedotright.style.textShadow = '0 0 0 #9d0a0a';
+                            
+                        } else {
+                          voicedotleft.style.textShadow = '0 0 0 white';
+                          voicedotright.style.textShadow = '0 0 0 white';
+                        }
+                        // check diff manner
+                        if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
+                          mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
+                          mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
+  
+                            
+                        } else {
+                          mannerdotleft.style.textShadow = '0 0 0 white';
+                          mannerdotright.style.textShadow = '0 0 0 white';
+                        }
+                        // check diff place
+                        if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place ){
+                          placedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                          placedotright.style.textShadow = '0 0 0 #9d0a0a';
+                            
+                        } else {
+                          placedotleft.style.textShadow = '0 0 0 white';
+                          placedotright.style.textShadow = '0 0 0 white';
+                        }
+                        // check diff voicing
+                        // Assuming data.base64Image contains the base64 encoded image
+                        // const base64Image = data.base64Image;
+                        // item1Image.src ='../images/flashcard1.png';
+                        // item2Image.src = '../images/flashcard2.png';
+                        // Set the background image of the image container
+                        //imageContainer.style.backgroundImage = `url(data:image/jpeg;base64,${base64Image})`;
+                    }
                       
                       function getDalleCannedresponseNew() {
                         
