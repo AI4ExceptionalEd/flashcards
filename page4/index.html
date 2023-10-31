@@ -207,7 +207,7 @@
                       // const selected1 = document.getElementById('dropdown1').value;
                       const selected2 = document.getElementById('dropdown2').value;
                       const selected3 = document.getElementById('dropdown3').value;
-                      // const modelselected = document.getElementById('dropdown4').value
+                      const modelselected = document.getElementById('dropdown4').value
                       const styleselected = document.getElementById('dropdown5').value
                       const inputField = document.getElementById('gradiotext');
                       inputField.value = `Generate a pair of words with maximally contrasting phonemes that differ at the ${selected2} sound and one of the sounds is ${selected3}`;
@@ -421,26 +421,26 @@
 
                 function checkModel() {
                   console.log('in check model function')
-                  // const modelselected = document.getElementById('dropdown4').value;
+                  const modelselected = document.getElementById('dropdown4').value;
                   const styleselected = document.getElementById('dropdown5').value;
                   
                   // console.log('model selected is ' + modelselected)
                   console.log('style selected is ' + styleselected)
-                  // if (modelselected === "dalle" ) {
-                  //   getDalleCannedresponseNew()
-                  // }
-                  // else if (modelselected === "sdxl" && styleselected === "childrenplaybook") {
-                  //   console.log('called older json')
-                  //   getCannedresponseNew()
-                  // } else if (modelselected === "sdxl" && styleselected === "photorealistic") {
-                  //   getSDXLrealistic()
-                  // }
-                  if (styleselected === "childrenplaybook") {
+                  if (modelselected === "dalle" ) {
+                    getDalleCannedresponseNew()
+                  }
+                  else if (modelselected === "sdxl" && styleselected === "childrenplaybook") {
                     console.log('called older json')
                     getCannedresponseNew()
-                  } else if (styleselected === "photorealistic") {
+                  } else if (modelselected === "sdxl" && styleselected === "photorealistic") {
                     getSDXLrealistic()
                   }
+                  // if (styleselected === "childrenplaybook") {
+                  //   console.log('called older json')
+                  //   getCannedresponseNew()
+                  // } else if (styleselected === "photorealistic") {
+                  //   getSDXLrealistic()
+                  // }
                 }
 
                       document.getElementById("gradiotext").setAttribute("readonly", "readonly");
