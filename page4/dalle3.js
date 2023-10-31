@@ -1,56 +1,112 @@
 const dalledata = [
-//     {
-//     "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-//     "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
-//     "contrast": "maximally",
-//     "location": "initial",
-//     "sound": "/s/",
-//     "pair": {
-//         "item1": {
-//             "word": "sip",
-//             "sound": "/s/",
-//             "ipa": "s\u026a\u014b",
-//             "place": "alveolar",
-//             "manner": "fricative",
-//             "voicing": "voiceless",
-//             "b64_image": "./dalleimages/photorealistic/sip_dalle_photorealistic.png"
-//         },
-//         "item2": {
-//             "word": "ship",
-//             "sound": "/ʃ/",
-//             "ipa": "br\u026a\u014b",
-//             "place": "post-alveolar",
-//             "manner": "fricative",
-//             "voicing": "voiceless",
-//             "b64_image": "./dalleimages/photorealistic/ship_dalle_photorealistic.png"
-//         }
-//     },
-//     "explanation": "These are maximally opposing because the place, manner and voicing are different."
-// },
+{
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "initial",
+    "sound": "/s/",
+    "pair": {
+        "item1": {
+            "word": "sip",
+            "sound": "/s/",
+            "ipa": "/sɪp/",
+            "place": "alveolar",
+            "manner": "fricatives",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/sip_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "zip",
+            "sound": "/z/",
+            "ipa": "/zɪp/",
+            "place": "alveolar",
+            "manner": "fricatives",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/zip_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+{
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "initial",
+    "sound": "/s/",
+    "pair": {
+        "item1": {
+            "word": "sand",
+            "sound": "/s/",
+            "ipa": "/sænd/",
+            "place": "alveolar",
+            "manner": "fricatives",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/sand_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "hand",
+            "sound": "/h/",
+            "ipa": "/hænd/",
+            "place": "glottal",
+            "manner": "glottal fricative",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/hand_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+{
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "initial",
+    "sound": "/s/",
+    "pair": {
+        "item1": {
+            "word": "sock",
+            "sound": "/s/",
+            "ipa": "/sɒk/",
+            "place": "alveolar",
+            "manner": "fricatives",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/sock_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "rock",
+            "sound": "/r/",
+            "ipa": "/rɒk/",
+            "place": "alveolar",
+            "manner": "approximant",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/rock_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
 {
     "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
     "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
     "contrast": "maximally",
     "location": "final",
-    "sound": "/l/",
+    "sound": "/s/",
     "pair": {
         "item1": {
-            "word": "bale",
-            "sound": "/l/",
-            "ipa": "s\u026a\u014b",
+            "word": "cars",
+            "sound": "/z/",
+            "ipa": "/kɑrz/",
             "place": "alveolar",
-            "manner": "lateral approximant",
+            "manner": "fricative",
             "voicing": "voiced",
-            "b64_image": "./dalleimages/photorealistic/bale_dalle_photorealistic.png"
+            "b64_image": "./dalle3_realistic/cars_dalle_photorealistic.png"
         },
         "item2": {
-            "word": "bat",
+            "word": "cart",
             "sound": "/t/",
-            "ipa": "br\u026a\u014b",
+            "ipa": "/kɑrt/",
             "place": "alveolar",
-            "manner": "stop",
+            "manner": "nasal",
             "voicing": "voiceless",
-            "b64_image": "./dalleimages/photorealistic/bat_dalle_photorealistic.png"
+            "b64_image": "./dalle3_realistic/cart_dalle_photorealistic.png"
         }
     },
     "explanation": "These are maximally opposing because the place, manner and voicing are different."
@@ -60,254 +116,260 @@ const dalledata = [
     "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
     "contrast": "maximally",
     "location": "final",
-    "sound": "/l/",
+    "sound": "/s/",
     "pair": {
         "item1": {
-            "word": "feel",
-            "sound": "/l/",
-            "ipa": "s\u026a\u014b",
+            "word": "paws",
+            "sound": "/z/",
+            "ipa": "/pɔz/",
             "place": "alveolar",
-            "manner": "lateral approximant",
+            "manner": "fricative",
             "voicing": "voiced",
-            "b64_image": "./dalleimages/photorealistic/feel_dalle_photorealistic.png"
+            "b64_image": "./dalle3_realistic/paws_dalle_photorealistic.png"
         },
         "item2": {
-            "word": "peep",
-            "sound": "/p/",
-            "ipa": "br\u026a\u014b",
+            "word": "pops",
+            "sound": "/s/",
+            "ipa": "/pɑps/",
+            "place": "alveolar",
+            "manner": "nasal",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/pops_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+{
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "final",
+    "sound": "/r/",
+    "pair": {
+        "item1": {
+            "word": "rope",
+            "sound": "/r/",
+            "ipa": "/roʊp/",
             "place": "bilabial",
             "manner": "stop",
             "voicing": "voiceless",
-            "b64_image": "./dalleimages/photorealistic/peep_dalle_photorealistic.png"
-        }
-    },
-    "explanation": "These are maximally opposing because the place, manner and voicing are different."
-},
-{
-    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /r/",
-    "contrast": "maximally",
-    "location": "final",
-    "sound": "/r/",
-    "pair": {
-        "item1": {
-            "word": "car",
-            "sound": "/r/",
-            "ipa": "s\u026a\u014b",
-            "place": "alveolar",
-            "manner": "approximant",
-            "voicing": "voiced",
-            "b64_image": "./dalleimages/photorealistic/car_dalle_photorealistic.png"
+            "b64_image": "./dalle3_realistic/rope_dalle_photorealistic.png"
         },
         "item2": {
-            "word": "cap",
-            "sound": "/p/",
-            "ipa": "br\u026a\u014b",
+            "word": "robe",
+            "sound": "/b/",
+            "ipa": "/roʊb/",
             "place": "bilabial",
-            "manner": "plosive",
-            "voicing": "voiceless",
-            "b64_image": "./dalleimages/photorealistic/cap_dalle_photorealistic.png"
+            "manner": "stop",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/robe_dalle_photorealistic.png"
         }
     },
     "explanation": "These are maximally opposing because the place, manner and voicing are different."
 },
 {
     "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /r/",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
     "contrast": "maximally",
     "location": "final",
     "sound": "/r/",
     "pair": {
         "item1": {
-            "word": "car",
+            "word": "ride",
             "sound": "/r/",
-            "ipa": "s\u026a\u014b",
+            "ipa": "/raɪd/",
+            "place": "alveolar",
+            "manner": "stop",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/ride_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "rind",
+            "sound": "/d/",
+            "ipa": "/raɪnd/",
+            "place": "alveolar",
+            "manner": "nasal",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/rind_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+{
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "final",
+    "sound": "/r/",
+    "pair": {
+        "item1": {
+            "word": "ring",
+            "sound": "/r/",
+            "ipa": "/rɪŋ/",
+            "place": "velar",
+            "manner": "nasal",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/ring_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "rink",
+            "sound": "/d/",
+            "ipa": "/rɪŋk/",
+            "place": "velar",
+            "manner": "stop",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/rink_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+{
+    
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "initial",
+    "sound": "/r/",
+    "pair": {
+        "item1": {
+            "word": "rope",
+            "sound": "/r/",
+            "ipa": "/roʊp/",
             "place": "alveolar",
             "manner": "approximant",
             "voicing": "voiced",
-            "b64_image": "./dalleimages/photorealistic/car_dalle_photorealistic.png"
+            "b64_image": "./dalle3_realistic/rope_dalle_photorealistic.png"
         },
         "item2": {
-            "word": "cap",
-            "sound": "/p/",
-            "ipa": "br\u026a\u014b",
+            "word": "hope",
+            "sound": "/h/",
+            "ipa": "/rɪŋk/",
+            "place": "glottal",
+            "manner": "glottal fricative",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/hope_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+{
+    
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "initial",
+    "sound": "/r/",
+    "pair": {
+        "item1": {
+            "word": "red",
+            "sound": "/r/",
+            "ipa": "/rɛd/",
+            "place": "alveolar",
+            "manner": "approximant",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/red_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "bed",
+            "sound": "/b/",
+            "ipa": "/bɛd//",
             "place": "bilabial",
-            "manner": "plosive",
-            "voicing": "voiceless",
-            "b64_image": "./dalleimages/photorealistic/cap_dalle_photorealistic.png"
+            "manner": "stop",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/bed_dalle_photorealistic.png"
         }
     },
     "explanation": "These are maximally opposing because the place, manner and voicing are different."
 },
 {
+    
     "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /r/",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
     "contrast": "maximally",
-    "location": "final",
-    "sound": "/r/",
+    "location": "initial",
+    "sound": "/l/",
     "pair": {
         "item1": {
-            "word": "bore",
-            "sound": "/r/",
-            "ipa": "s\u026a\u014b",
+            "word": "lake",
+            "sound": "/l/",
+            "ipa": "/leɪk/",
             "place": "alveolar",
             "manner": "approximant",
             "voicing": "voiced",
-            "b64_image": "./dalleimages/photorealistic/bore_dalle_photorealistic.png"
+            "b64_image": "./dalle3_realistic/lake_dalle_photorealistic.png"
         },
         "item2": {
-            "word": "both",
-            "sound": "/θ/",
-            "ipa": "br\u026a\u014b",
-            "place": "dental",
+            "word": "cake",
+            "sound": "/k/",
+            "ipa": "/keɪk/",
+            "place": "alveolar",
+            "manner": "stop",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/cake_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+{
+    
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "initial",
+    "sound": "/l/",
+    "pair": {
+        "item1": {
+            "word": "leaf",
+            "sound": "/l/",
+            "ipa": "/liːf/",
+            "place": "alveolar",
+            "manner": "approximant",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/leaf_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "beef",
+            "sound": "/b/",
+            "ipa": "/biːf/",
+            "place": "bilabial",
+            "manner": "stop",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/beef_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+{
+    
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "initial",
+    "sound": "/l/",
+    "pair": {
+        "item1": {
+            "word": "land",
+            "sound": "/l/",
+            "ipa": "/liːf/",
+            "place": "alveolar",
+            "manner": "approximant",
+            "voicing": "voiced",
+            "b64_image": "./dalle3_realistic/land_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "sand",
+            "sound": "/s/",
+            "ipa": "/biːf/",
+            "place": "alveolar",
             "manner": "fricative",
             "voicing": "voiceless",
-            "b64_image": "./dalleimages/photorealistic/both_dalle_photorealistic.png"
+            "b64_image": "./dalle3_realistic/sand_dalle_photorealistic.png"
         }
     },
     "explanation": "These are maximally opposing because the place, manner and voicing are different."
 },
 {
-    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /r/",
-    "contrast": "maximally",
-    "location": "initial",
-    "sound": "/r/",
-    "pair": {
-        "item1": {
-            "word": "rat",
-            "sound": "/r/",
-            "ipa": "s\u026a\u014b",
-            "place": "alveolar",
-            "manner": "approximant",
-            "voicing": "voiced",
-            "b64_image": "./dalleimages/photorealistic/rat_dalle_photorealistic.png"
-        },
-        "item2": {
-            "word": "pat",
-            "sound": "/θ/",
-            "ipa": "br\u026a\u014b",
-            "place": "bilabial",
-            "manner": "plosive",
-            "voicing": "voiceless",
-            "b64_image": "./dalleimages/photorealistic/pat_dalle_photorealistic.png"
-        }
-    },
-    "explanation": "These are maximally opposing because the place, manner and voicing are different."
-},
-// {
-//     "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-//     "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /r/",
-//     "contrast": "maximally",
-//     "location": "initial",
-//     "sound": "/r/",
-//     "pair": {
-//         "item1": {
-//             "word": "rain",
-//             "sound": "/r/",
-//             "ipa": "s\u026a\u014b",
-//             "place": "alveolar",
-//             "manner": "approximant",
-//             "voicing": "voiced",
-//             "b64_image": "./dalleimages/photorealistic/rain_dalle_photorealistic.png"
-//         },
-//         "item2": {
-//             "word": "pain",
-//             "sound": "/θ/",
-//             "ipa": "br\u026a\u014b",
-//             "place": "bilabial",
-//             "manner": "plosive",
-//             "voicing": "voiceless",
-//             "b64_image": "./dalleimages/photorealistic/pain_dalle_photorealistic.png"
-//         }
-//     },
-//     "explanation": "These are maximally opposing because the place, manner and voicing are different."
-// },
-// {
-//     "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-//     "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
-//     "contrast": "maximally",
-//     "location": "initial",
-//     "sound": "/s/",
-//     "pair": {
-//         "item1": {
-//             "word": "sat",
-//             "sound": "/s/",
-//             "ipa": "s\u026a\u014b",
-//             "place": "alveolar",
-//             "manner": "fricative",
-//             "voicing": "voiceless",
-//             "b64_image": "./dalleimages/photorealistic/sat_dalle_photorealistic.png"
-//         },
-//         "item2": {
-//             "word": "bat",
-//             "sound": "/ʃ/",
-//             "ipa": "br\u026a\u014b",
-//             "place": "post-alveolar",
-//             "manner": "fricative",
-//             "voicing": "voiceless",
-//             "b64_image": "./dalleimages/photorealistic/bat_dalle_photorealistic.png"
-//         }
-//     },
-//     "explanation": "These are maximally opposing because the place, manner and voicing are different."
-// },
-// {
-//     "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-//     "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
-//     "contrast": "maximally",
-//     "location": "final",
-//     "sound": "/s/",
-//     "pair": {
-//         "item1": {
-//             "word": "bus",
-//             "sound": "/s/",
-//             "ipa": "s\u026a\u014b",
-//             "place": "alveolar",
-//             "manner": "fricative",
-//             "voicing": "voiceless",
-//             "b64_image": "./dalleimages/photorealistic/bus_dalle_photorealistic.png"
-//         },
-//         "item2": {
-//             "word": "bum",
-//             "sound": "/ʃ/",
-//             "ipa": "br\u026a\u014b",
-//             "place": "post-alveolar",
-//             "manner": "fricative",
-//             "voicing": "voiceless",
-//             "b64_image": "./dalleimages/photorealistic/bum_dalle_photorealistic.png"
-//         }
-//     },
-//     "explanation": "These are maximally opposing because the place, manner and voicing are different."
-// },
-{
-    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
-    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
-    "contrast": "maximally",
-    "location": "initial",
-    "sound": "/l/",
-    "pair": {
-        "item1": {
-            "word": "lap",
-            "sound": "/s/",
-            "ipa": "s\u026a\u014b",
-            "place": "alveolar",
-            "manner": "lateral approximant",
-            "voicing": "voiced",
-            "b64_image": "./dalleimages/photorealistic/lap_dalle_photorealistic.png"
-        },
-        "item2": {
-            "word": "pap",
-            "sound": "/p/",
-            "ipa": "br\u026a\u014b",
-            "place": "bilabial",
-            "manner": "plosive",
-            "voicing": "voiceless",
-            "b64_image": "./dalleimages/photorealistic/pap_dalle_photorealistic.png"
-        }
-    },
-    "explanation": "These are maximally opposing because the place, manner and voicing are different."
-},
-{
+    
     "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
     "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
     "contrast": "maximally",
@@ -315,24 +377,54 @@ const dalledata = [
     "sound": "/l/",
     "pair": {
         "item1": {
-            "word": "bail",
-            "sound": "/s/",
-            "ipa": "s\u026a\u014b",
+            "word": "lace",
+            "sound": "/l/",
+            "ipa": "/leɪs/",
             "place": "alveolar",
-            "manner": "lateral approximant",
-            "voicing": "voiced",
-            "b64_image": "./dalleimages/photorealistic/bail_dalle_photorealistic.png"
+            "manner": "fricative",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/lace_dalle_photorealistic.png"
         },
         "item2": {
-            "word": "bait",
-            "sound": "/p/",
-            "ipa": "br\u026a\u014b",
+            "word": "late",
+            "sound": "/t/",
+            "ipa": "/leɪt/",
             "place": "alveolar",
-            "manner": "plosive",
+            "manner": "stop",
             "voicing": "voiceless",
-            "b64_image": "./dalleimages/photorealistic/bait_dalle_photorealistic.png"
+            "b64_image": "./dalle3_realistic/late_dalle_photorealistic.png"
         }
     },
     "explanation": "These are maximally opposing because the place, manner and voicing are different."
-}
+},
+{
+    
+    "uuid": "7a3cf1ef-4370-49e1-94c3-8d1f2faa3aa4",
+    "prompt": "Generate a pair of words with maximally contrasting phonemes that differ at the initial location and one of the sounds is /s/",
+    "contrast": "maximally",
+    "location": "final",
+    "sound": "/l/",
+    "pair": {
+        "item1": {
+            "word": "lone",
+            "sound": "/n/",
+            "ipa": "/leɪs/",
+            "place": "alveolar",
+            "manner": "nasal",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/lone_dalle_photorealistic.png"
+        },
+        "item2": {
+            "word": "long",
+            "sound": "/ŋ/",
+            "ipa": "/leɪt/",
+            "place": "alveolar",
+            "manner": "nasal",
+            "voicing": "voiceless",
+            "b64_image": "./dalle3_realistic/long_dalle_photorealistic.png"
+        }
+    },
+    "explanation": "These are maximally opposing because the place, manner and voicing are different."
+},
+
 ]
