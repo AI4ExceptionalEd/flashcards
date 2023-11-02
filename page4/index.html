@@ -52,6 +52,7 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     <script src="cached.js"></script>
     <script src="dalle3.js"></script>
+    <script src="dalle3cartoon.js"></script>
     <script src="minimal_pairs.js"></script>
       
 
@@ -358,6 +359,21 @@
 
                 // Dalle variables
 
+                var initial_s_sound_counter_dalle_cartoon = 0
+                var initial_l_sound_counter_dalle_cartoon = 0
+                var initial_r_sound_counter_dalle_cartoon = 0
+                var final_s_sound_counter_dalle_cartoon = 0
+                var final_l_sound_counter_dalle_cartoon = 0
+                var final_r_sound_counter_dalle_cartoon = 0
+                var initial_s_sound_dalle_cartoon = filterDalleCartoonDataByLocationAndSound(dallecartoondata, 'initial', 's');
+                var initial_l_sound_dalle_cartoon = filterDalleCartoonDataByLocationAndSound(dallecartoondata, 'initial', 'l');
+                var initial_r_sound_dalle_cartoon = filterDalleCartoonDataByLocationAndSound(dallecartoondata, 'initial', 'r');
+                var final_s_sound_dalle_cartoon = filterDalleCartoonDataByLocationAndSound(dallecartoondata, 'final', 's');
+                var final_l_sound_dalle_cartoon = filterDalleCartoonDataByLocationAndSound(dallecartoondata, 'final', 'l');
+                var final_r_sound_dalle_cartoon = filterDalleCartoonDataByLocationAndSound(dallecartoondata, 'final', 'r');
+
+                // Dalle Cartoon variables
+
                 var initial_s_sound_counter_dalle = 0
                 var initial_l_sound_counter_dalle = 0
                 var initial_r_sound_counter_dalle = 0
@@ -370,6 +386,8 @@
                 var final_s_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', 's');
                 var final_l_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', 'l');
                 var final_r_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', 'r');
+
+
 
                 // SDXL photorealistic variables
 
@@ -414,6 +432,11 @@
                 return dalledata.filter(item => item.location === inputLocation && item.sound === inputSound);
             }
 
+            function filterDalleCartoonDataByLocationAndSound(data, inputLocation, inputSound) {
+                console.log('dalle data is ' + dalledata)
+                return dallecartoondata.filter(item => item.location === inputLocation && item.sound === inputSound);
+            }
+
             function filterSDXLDataByLocationAndSound(data, inputLocation, inputSound) {
                 console.log('realisticsdxl is ' + realisticsdxl)
                 return realisticsdxl.filter(item => item.location === inputLocation && item.sound === inputSound);
@@ -426,8 +449,10 @@
                   
                   // console.log('model selected is ' + modelselected)
                   console.log('style selected is ' + styleselected)
-                  if (modelselected === "dalle" ) {
+                  if (modelselected === "dalle" && styleselected === "photorealistic" ) {
                     getDalleCannedresponseNew()
+                  } else if (modelselected === "dalle" && styleselected === "childrenplaybook" ) {
+                    getDalleCartoonCannedresponseNew()
                   }
                   else if (modelselected === "sdxl" && styleselected === "childrenplaybook") {
                     console.log('called older json')
@@ -612,6 +637,172 @@
                         // Set the background image of the image container
                         //imageContainer.style.backgroundImage = `url(data:image/jpeg;base64,${base64Image})`;
                     }
+
+                    function getDalleCartoonCannedresponseNew() {
+                        
+                        // const contrast = document.getElementById('dropdown1').value;
+                        const location = document.getElementById('dropdown2').value;
+                        const sound = document.getElementById('dropdown3').value;
+                        // console.log('location is ' + location)
+                        // console.log('sound is ' + sound)
+                        
+                        // check input
+                        var Finalitem = ["temp"]
+                          
+                        if(location === 'initial' && sound.includes('l')) {
+                          Finaltem = initial_l_sound_dalle_cartoon[initial_l_sound_counter_dalle_cartoon]
+                          initial_l_sound_counter_dalle_cartoon += 1
+                          if(initial_l_sound_counter_dalle_cartoon == initial_l_sound_dalle_cartoon.length) {
+                            initial_l_sound_counter_dalle_cartoon = 0
+                          }
+                        }
+                        else if(location === 'final' && sound.includes('l')) {
+                          Finaltem = final_l_sound_dalle_cartoon[final_l_sound_counter_dalle_cartoon]
+                          final_l_sound_counter_dalle_cartoon += 1
+                          if(final_l_sound_counter_dalle_cartoon == final_l_sound_dalle_cartoon.length) {
+                            final_l_sound_counter_dalle_cartoon = 0
+                          }
+                        }
+                        else if(location === 'initial' && sound.includes('r')) {
+                          Finaltem = initial_r_sound_dalle_cartoon[initial_r_sound_counter_dalle_cartoon]
+                          initial_r_sound_counter_dalle_cartoon += 1
+                          if(initial_r_sound_counter_dalle_cartoon == initial_r_sound_dalle_cartoon.length) {
+                            initial_r_sound_counter_dalle_cartoon = 0
+                          }
+                        }
+                        else if(location === 'final' && sound.includes('r')) {
+                          Finaltem = final_r_sound_dalle_cartoon[final_r_sound_counter_dalle_cartoon]
+                          final_r_sound_counter_dalle_cartoon += 1
+                          if(final_r_sound_counter_dalle_cartoon == final_r_sound_dalle_cartoon.length) {
+                            final_r_sound_counter_dalle_cartoon = 0
+                          }
+                        }
+                        else if(location === 'initial' && sound.includes('s')) {
+                          Finaltem = initial_s_sound_dalle_cartoon[initial_s_sound_counter_dalle_cartoon]
+                          initial_s_sound_counter_dalle_cartoon += 1
+                          if(initial_s_sound_counter_dalle_cartoon == initial_s_sound_dalle_cartoon.length) {
+                            initial_s_sound_counter_dalle_cartoon = 0
+                          }
+                        }
+                        else if(location === 'final' && sound.includes('s')) {
+                          Finaltem = final_s_sound_dalle_cartoon[final_s_sound_counter_dalle_cartoon]
+                          final_s_sound_counter_dalle_cartoon += 1
+                          if(final_s_sound_counter_dalle_cartoon == final_s_sound_dalle_cartoon.length) {
+                            final_s_sound_counter_dalle_cartoon = 0
+                          }
+                        }
+  
+                        
+                        //const randomItem = filterDataByLocationAndSound(data, location, sound);
+                        //const Finaltem = getRandomIndex(randomItem);
+  
+                        //console.log('len filter data is ' + (Finaltem.length))
+  
+                        //console.log('data 1 is ' + (Finaltem.pair.item1))
+                        
+                        const firstcard = document.getElementById('first-card');
+                        const secondcard = document.getElementById('second-card');
+                        const table = document.getElementById("card-details-table");
+                        const card1name = document.getElementById("placeholder-card-1-name");
+                        const card2name = document.getElementById("placeholder-card-2-name");
+                        const firstcardtitle = document.getElementById('flashcard-first-title');
+                        const secondcardtitle = document.getElementById('flashcard-second-title');
+                        const card1phonetic = document.getElementById("placeholder-card-1-ipa");
+                        const card2phonetic = document.getElementById("placeholder-card-2-ipa");
+                        const card1place = document.getElementById("placeholder-card-1-place");
+                        const card2place = document.getElementById("placeholder-card-2-place");
+                        const card1voice = document.getElementById("placeholder-card-1-voicing");
+                        const card2voice = document.getElementById("placeholder-card-2-voicing");
+                        const card1manner = document.getElementById("placeholder-card-1-manner");
+                        const card2manner = document.getElementById("placeholder-card-2-manner");
+                        const card1phoneme = document.getElementById("placeholder-card-1-phoneme");
+                        const card2phoneme = document.getElementById("placeholder-card-2-phoneme");
+                        const cardplaceheader = document.getElementById("place-header");
+                        const cardvoiceheader = document.getElementById("voice-header");
+                        const cardmannerheader = document.getElementById("manner-header");
+                        const explanation = document.getElementById("explanation-div");
+                        const explanationdiv = document.getElementById("explanation-div");
+                        const gradioboxmain = document.getElementById("img-template");
+                        const placedotleft = document.getElementById("place-dot-left")
+                        const voicedotleft = document.getElementById("voice-dot-left")
+                        const mannerdotleft = document.getElementById("manner-dot-left")
+                        const placedotright = document.getElementById("place-dot-right")
+                        const voicedotright = document.getElementById("voice-dot-right")
+                        const mannerdotright = document.getElementById("manner-dot-right")
+                        firstcard.style.display = 'block'
+                        secondcard.style.display = 'block'
+                        // console.log('img 1 src is ' + Finaltem.pair.item1.b64_image)
+                        console.log('final item is ' + Finaltem)
+                        console.log(Object.keys(Finaltem).length)
+                        firstcard.src = Finaltem.pair.item1.b64_image;
+                        secondcard.src = Finaltem.pair.item2.b64_image;
+                        // table.style.display = 'inline'
+                        firstcardtitle.innerText = Finaltem.pair.item1.word
+                        secondcardtitle.innerText = Finaltem.pair.item2.word
+                        card1name.innerText = Finaltem.pair.item1.word
+                        card2name.innerText = Finaltem.pair.item2.word
+                        card1phonetic.innerText = Finaltem.pair.item1.ipa
+                        card2phonetic.innerText = Finaltem.pair.item2.ipa
+                        card1place.innerText = Finaltem.pair.item1.place
+                        card2place.innerText = Finaltem.pair.item2.place
+                        card1voice.innerText = Finaltem.pair.item1.voicing
+                        card2voice.innerText = Finaltem.pair.item2.voicing
+                        card1manner.innerText = Finaltem.pair.item1.manner
+                        card2manner.innerText = Finaltem.pair.item2.manner
+                        // Finaltem.pair.item1.sound.replace(/\//g, '')
+                        // Finaltem.pair.item2.sound.replace(/\//g, '')
+                        // if (Finaltem.pair.item1.sound.startsWith('/') && Finaltem.pair.item1.sound.endsWith('/')) {
+                        //   Finaltem.pair.item1.sound = Finaltem.pair.item1.sound.slice(2, -2);
+                        // }
+                        // if (Finaltem.pair.item2.sound.startsWith('/') && Finaltem.pair.item2.sound.endsWith('/')) {
+                        //   Finaltem.pair.item2.sound = Finaltem.pair.item2.sound.slice(2, -2);
+                        // }
+                        card1phoneme.innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/'
+                        card2phoneme.innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/'
+                        // explanationdiv.style.display = 'block'
+                        if (Finaltem.hasOwnProperty('explanation')){
+                        explanation.innerText = Finaltem.explanation
+                        }
+                        gradioboxmain.style.height = 'auto'
+  
+                        if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
+                            // cardvoiceheader.style.backgroundColor = 'lightblue';
+                            // cardvoiceheader.style.borderRadius = '5px';
+                            voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                            voicedotright.style.textShadow = '0 0 0 #9d0a0a';
+                            
+                        } else {
+                          voicedotleft.style.textShadow = '0 0 0 white';
+                          voicedotright.style.textShadow = '0 0 0 white';
+                        }
+                        // check diff manner
+                        if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
+                          mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
+                          mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
+  
+                            
+                        } else {
+                          mannerdotleft.style.textShadow = '0 0 0 white';
+                          mannerdotright.style.textShadow = '0 0 0 white';
+                        }
+                        // check diff place
+                        if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place ){
+                          placedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                          placedotright.style.textShadow = '0 0 0 #9d0a0a';
+                            
+                        } else {
+                          placedotleft.style.textShadow = '0 0 0 white';
+                          placedotright.style.textShadow = '0 0 0 white';
+                        }
+                        // check diff voicing
+                        // Assuming data.base64Image contains the base64 encoded image
+                        // const base64Image = data.base64Image;
+                        // item1Image.src ='../images/flashcard1.png';
+                        // item2Image.src = '../images/flashcard2.png';
+                        // Set the background image of the image container
+                        //imageContainer.style.backgroundImage = `url(data:image/jpeg;base64,${base64Image})`;
+                    }
+  
                       
                       function getDalleCannedresponseNew() {
                         
