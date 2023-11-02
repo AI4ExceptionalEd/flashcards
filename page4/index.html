@@ -364,12 +364,12 @@
                 var final_s_sound_counter_dalle = 0
                 var final_l_sound_counter_dalle = 0
                 var final_r_sound_counter_dalle = 0
-                var initial_s_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'initial', '/s/');
-                var initial_l_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'initial', '/l/');
-                var initial_r_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'initial', '/r/');
-                var final_s_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', '/s/');
-                var final_l_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', '/l/');
-                var final_r_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', '/r/');
+                var initial_s_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'initial', 's');
+                var initial_l_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'initial', 'l');
+                var initial_r_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'initial', 'r');
+                var final_s_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', 's');
+                var final_l_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', 'l');
+                var final_r_sound_dalle = filterDalleDataByLocationAndSound(dalledata, 'final', 'r');
 
                 // SDXL photorealistic variables
 
@@ -410,7 +410,7 @@
 }
 
               function filterDalleDataByLocationAndSound(data, inputLocation, inputSound) {
-                
+                console.log('dalle data is ' + dalledata)
                 return dalledata.filter(item => item.location === inputLocation && item.sound === inputSound);
             }
 
