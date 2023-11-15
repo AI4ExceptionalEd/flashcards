@@ -194,13 +194,35 @@
                   </select>
                 </div>
                 </div>
+                <div style="text-align: center;">
+                  <span style="font-weight: bold; font-size: 20px;">Illustration Style</span>
+                  <select id="dropdown5" onchange="updateInput()">
+                    
+                    <option value="Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /l/ and the other sound is /r/" selected>Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /l/ and the other sound is /r/</option>
+                    <option value="Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /l/" >Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /l/</option>
+                    <option value="Create a minimally opposing pair of words">Create a minimally opposing pair of words</option>
+                    <option value="Create a minimally opposing pair of words where the places of articulation are bilabial and labiodental">Create a minimally opposing pair of words where the places of articulation are bilabial and labiodental</option>
+                    <!-- <option value="minimal">minimal</option> -->
+                  </select>
+                </div>
+                
                 <div class="gradio-box-2" style="margin-top: 2%;">
-                  <textarea rows="2" id= "gradiotext" type="text" class="text-input-2" placeholder="">Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /l/
+                  <textarea rows="2" id= "gradiotext" type="text" class="text-input-2" placeholder="">Generate a pair of words with maximally contrasting phonemes that differ at the initial sound and one of the sounds is /l/ and the other sound is /r/
                  </textarea>
                  <button id="getData" class="create-button">Create</button>
                 </div>
                
-                 
+                <script>
+
+                  function updateInput() {
+                      // const selected1 = document.getElementById('dropdown1').value;
+                      
+                      const inputField = document.getElementById('gradiotext');
+                      const selectedtext = document.getElementById('dropdown5').value;
+                      // inputField.value = `Generate a pair of words with maximally contrasting phonemes that differ at the ${selected2} sound and one of the sounds is ${selected3}`;
+                      inputField.value = selectedtext;
+                  }
+              </script>
 
                 <script src="../assets/javascripts/script.js"></script>
                 <!-- <input id= "gradiotext" type="text" class="styledInput" placeholder="Enter your data">
