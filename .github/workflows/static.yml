@@ -19,6 +19,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  GITHUB_PAGES: true
+
 jobs:
   # Single deploy job since we're just deploying pre-built static content
   deploy:
@@ -42,12 +45,17 @@ jobs:
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          enablement: true
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'page4'
+          retention-days: 1
       
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3 
+        uses: actions/deploy-pages@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
