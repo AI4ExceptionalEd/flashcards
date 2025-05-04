@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -54,6 +53,7 @@
     <script src="dalle3.js"></script>
     <script src="dalle3cartoon.js"></script>
     <script src="minimal_pairs.js"></script>
+    <script src="flux.js"></script>
       
 
     
@@ -159,7 +159,7 @@
                     <select id="dropdown4" onchange="updateInput()">
                       <option value="dalle" >Dalle-3</option>
                       <option value="sdxl" selected>SDXL</option>
-                      
+                      <option value="flux">Flux</option>
                     </select>
                   </div>
                   <div>
@@ -190,9 +190,8 @@
                       <option value="/s/">/s/</option>
                       <option value="/l/">/l/</option>
                       <option value="/r/" selected>/r/</option>
-                      <!-- <option value="/f/">/f/</option>
                       <option value="/p/">/p/</option>
-                      <option value="/t/">/t/</option> -->
+                      <option value="/b/">/b/</option>
                   </select>
                 </div>
                 </div>
@@ -203,6 +202,11 @@
                 </div>
                
                 <script>
+                  window.onload = function() {
+                    document.getElementById('dropdown4').value = 'flux';
+                    document.getElementById('dropdown3').value = '/p/';
+                    checkModel();
+                  }
 
                   function updateInput() {
                       // const selected1 = document.getElementById('dropdown1').value;
@@ -404,6 +408,16 @@
                 var final_l_sound_sdxl_realistic = filterSDXLDataByLocationAndSound(realisticsdxl, 'final', 'l');
                 var final_r_sound_sdxl_realistic = filterSDXLDataByLocationAndSound(realisticsdxl, 'final', 'r');
 
+                // Flux variables
+                var initial_p_sound_counter_flux = 0
+                var initial_b_sound_counter_flux = 0
+                var final_p_sound_counter_flux = 0
+                var final_b_sound_counter_flux = 0
+                var initial_p_sound_flux = filterFluxDataByLocationAndSound(fluxdata, 'initial', 'p');
+                var initial_b_sound_flux = filterFluxDataByLocationAndSound(fluxdata, 'initial', 'b');
+                var final_p_sound_flux = filterFluxDataByLocationAndSound(fluxdata, 'final', 'p');
+                var final_b_sound_flux = filterFluxDataByLocationAndSound(fluxdata, 'final', 'b');
+
                 function displayPopup() {
                   var overlay = document.getElementById('overlay');
                   var popup = document.getElementById('popup');
@@ -442,14 +456,78 @@
                 return realisticsdxl.filter(item => item.location === inputLocation && item.sound === inputSound);
             }
 
+            function filterFluxDataByLocationAndSound(data, inputLocation, inputSound) {
+                return fluxdata.filter(item => item.location === inputLocation && item.sound === inputSound);
+            }
+
                 function checkModel() {
                   console.log('in check model function')
                   const modelselected = document.getElementById('dropdown4').value;
                   const styleselected = document.getElementById('dropdown5').value;
+                  const location = document.getElementById('dropdown2').value;
+                  const sound = document.getElementById('dropdown3').value;
                   
-                  // console.log('model selected is ' + modelselected)
-                  console.log('style selected is ' + styleselected)
-                  if (modelselected === "dalle" && styleselected === "photorealistic" ) {
+                  if(modelselected === 'flux') {
+                    if(location === 'initial' && sound.includes('p')) {
+                      Finaltem = initial_p_sound_flux[initial_p_sound_counter_flux]
+                      initial_p_sound_counter_flux += 1
+                      if(initial_p_sound_counter_flux == initial_p_sound_flux.length) {
+                        initial_p_sound_counter_flux = 0
+                      }
+                    }
+                    else if(location === 'initial' && sound.includes('b')) {
+                      Finaltem = initial_b_sound_flux[initial_b_sound_counter_flux]
+                      initial_b_sound_counter_flux += 1
+                      if(initial_b_sound_counter_flux == initial_b_sound_flux.length) {
+                        initial_b_sound_counter_flux = 0
+                      }
+                    }
+                    else if(location === 'final' && sound.includes('p')) {
+                      Finaltem = final_p_sound_flux[final_p_sound_counter_flux]
+                      final_p_sound_counter_flux += 1
+                      if(final_p_sound_counter_flux == final_p_sound_flux.length) {
+                        final_p_sound_counter_flux = 0
+                      }
+                    }
+                    else if(location === 'final' && sound.includes('b')) {
+                      Finaltem = final_b_sound_flux[final_b_sound_counter_flux]
+                      final_b_sound_counter_flux += 1
+                      if(final_b_sound_counter_flux == final_b_sound_flux.length) {
+                        final_b_sound_counter_flux = 0
+                      }
+                    }
+                    
+                    // Display the Flux images regardless of style selection
+                    const firstcard = document.getElementById('first-card');
+                    const secondcard = document.getElementById('second-card');
+                    firstcard.src = Finaltem.pair.item1.b64_image;
+                    secondcard.src = Finaltem.pair.item2.b64_image;
+                    
+                    // Update other card details
+                    document.getElementById('flashcard-first-title').innerText = Finaltem.pair.item1.word;
+                    document.getElementById('flashcard-second-title').innerText = Finaltem.pair.item2.word;
+                    document.getElementById("placeholder-card-1-name").innerText = Finaltem.pair.item1.word;
+                    document.getElementById("placeholder-card-2-name").innerText = Finaltem.pair.item2.word;
+                    document.getElementById("placeholder-card-1-ipa").innerText = Finaltem.pair.item1.ipa;
+                    document.getElementById("placeholder-card-2-ipa").innerText = Finaltem.pair.item2.ipa;
+                    document.getElementById("placeholder-card-1-place").innerText = Finaltem.pair.item1.place;
+                    document.getElementById("placeholder-card-2-place").innerText = Finaltem.pair.item2.place;
+                    document.getElementById("placeholder-card-1-voicing").innerText = Finaltem.pair.item1.voicing;
+                    document.getElementById("placeholder-card-2-voicing").innerText = Finaltem.pair.item2.voicing;
+                    document.getElementById("placeholder-card-1-manner").innerText = Finaltem.pair.item1.manner;
+                    document.getElementById("placeholder-card-2-manner").innerText = Finaltem.pair.item2.manner;
+                    document.getElementById("placeholder-card-1-phoneme").innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/';
+                    document.getElementById("placeholder-card-2-phoneme").innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/';
+                    
+                    // Update explanation if available
+                    if (Finaltem.hasOwnProperty('explanation')) {
+                      document.getElementById("explanation-div").innerText = Finaltem.explanation;
+                    }
+                    
+                    // Update dots for differences
+                    updateDifferenceDots(Finaltem);
+                  }
+                  else if (modelselected === "dalle" && styleselected === "photorealistic" ) {
                     getDalleCannedresponseNew()
                   } else if (modelselected === "dalle" && styleselected === "childrenplaybook" ) {
                     getDalleCartoonCannedresponseNew()
@@ -460,352 +538,214 @@
                   } else if (modelselected === "sdxl" && styleselected === "photorealistic") {
                     getSDXLrealistic()
                   }
-                  // if (styleselected === "childrenplaybook") {
-                  //   console.log('called older json')
-                  //   getCannedresponseNew()
-                  // } else if (styleselected === "photorealistic") {
-                  //   getSDXLrealistic()
-                  // }
                 }
 
-                      document.getElementById("gradiotext").setAttribute("readonly", "readonly");
-                      document.getElementById('getData').addEventListener('click', checkModel);
+                // Helper function to update the difference dots
+                function updateDifferenceDots(Finaltem) {
+                  const placedotleft = document.getElementById("place-dot-left");
+                  const voicedotleft = document.getElementById("voice-dot-left");
+                  const mannerdotleft = document.getElementById("manner-dot-left");
+                  const placedotright = document.getElementById("place-dot-right");
+                  const voicedotright = document.getElementById("voice-dot-right");
+                  const mannerdotright = document.getElementById("manner-dot-right");
+                  
+                  // Update voicing dots
+                  if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing) {
+                    voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                    voicedotright.style.textShadow = '0 0 0 #9d0a0a';
+                  } else {
+                    voicedotleft.style.textShadow = '0 0 0 white';
+                    voicedotright.style.textShadow = '0 0 0 white';
+                  }
+                  
+                  // Update manner dots
+                  if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner) {
+                    mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
+                    mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
+                  } else {
+                    mannerdotleft.style.textShadow = '0 0 0 white';
+                    mannerdotright.style.textShadow = '0 0 0 white';
+                  }
+                  
+                  // Update place dots
+                  if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place) {
+                    placedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                    placedotright.style.textShadow = '0 0 0 #9d0a0a';
+                  } else {
+                    placedotleft.style.textShadow = '0 0 0 white';
+                    placedotright.style.textShadow = '0 0 0 white';
+                  }
+                }
 
-                      function getSDXLrealistic() {
-                        console.log('calling sdxl realistic json function')
-                        // const contrast = document.getElementById('dropdown1').value;
-                        const location = document.getElementById('dropdown2').value;
-                        const sound = document.getElementById('dropdown3').value;
-                        // console.log('location is ' + location)
-                        // console.log('sound is ' + sound)
-                        
-                        // check input
-                        // var Finalitem = ["temp"]
-                        console.log('initial_l_sound_sdxl_realistic is ' + initial_l_sound_sdxl_realistic)
-                        console.log('initial_r_sound_sdxl_realistic is ' + initial_r_sound_sdxl_realistic)
-                        console.log('initial_s_sound_sdxl_realistic is ' + initial_s_sound_sdxl_realistic)
-                        if(location === 'initial' && sound.includes('l')) {
-                          Finaltem = initial_l_sound_sdxl_realistic[initial_l_sound_counter_sdxl_realistic]
-                          initial_l_sound_counter_sdxl_realistic += 1
-                          if(initial_l_sound_counter_sdxl_realistic == initial_l_sound_sdxl_realistic.length) {
-                            initial_l_sound_counter_sdxl_realistic = 0
-                          }
-                        }
-                        else if(location === 'final' && sound.includes('l')) {
-                          Finaltem = final_l_sound_sdxl_realistic[final_l_sound_counter_sdxl_realistic]
-                          final_l_sound_counter_sdxl_realistic += 1
-                          if(final_l_sound_counter_sdxl_realistic == final_l_sound_sdxl_realistic.length) {
-                            final_l_sound_counter_sdxl_realistic = 0
-                          }
-                        }
-                        else if(location === 'initial' && sound.includes('r')) {
-                          Finaltem = initial_r_sound_sdxl_realistic[initial_r_sound_counter_sdxl_realistic]
-                          initial_r_sound_counter_sdxl_realistic += 1
-                          if(initial_r_sound_counter_sdxl_realistic == initial_r_sound_sdxl_realistic.length) {
-                            initial_r_sound_counter_sdxl_realistic = 0
-                          }
-                        }
-                        else if(location === 'final' && sound.includes('r')) {
-                          Finaltem = final_r_sound_sdxl_realistic[final_r_sound_counter_sdxl_realistic]
-                          final_r_sound_counter_sdxl_realistic += 1
-                          if(final_r_sound_counter_sdxl_realistic == final_r_sound_sdxl_realistic.length) {
-                            final_r_sound_counter_sdxl_realistic = 0
-                          }
-                        }
-                        else if(location === 'initial' && sound.includes('s')) {
-                          Finaltem = initial_s_sound_sdxl_realistic[initial_s_sound_counter_sdxl_realistic]
-                          initial_s_sound_counter_sdxl_realistic += 1
-                          if(initial_s_sound_counter_sdxl_realistic == initial_s_sound_sdxl_realistic.length) {
-                            initial_s_sound_counter_sdxl_realistic = 0
-                          }
-                        }
-                        else if(location === 'final' && sound.includes('s')) {
-                          Finaltem = final_s_sound_sdxl_realistic[final_s_sound_counter_sdxl_realistic]
-                          final_s_sound_counter_sdxl_realistic += 1
-                          if(final_s_sound_counter_sdxl_realistic == final_s_sound_sdxl_realistic.length) {
-                            final_s_sound_counter_sdxl_realistic = 0
-                          }
-                        }
-                        console.log('final item after filtering is ' + Finaltem)
-                        
-                        //const randomItem = filterDataByLocationAndSound(data, location, sound);
-                        //const Finaltem = getRandomIndex(randomItem);
-  
-                        //console.log('len filter data is ' + (Finaltem.length))
-  
-                        //console.log('data 1 is ' + (Finaltem.pair.item1))
-                        
-                        const firstcard = document.getElementById('first-card');
-                        const secondcard = document.getElementById('second-card');
-                        const table = document.getElementById("card-details-table");
-                        const card1name = document.getElementById("placeholder-card-1-name");
-                        const card2name = document.getElementById("placeholder-card-2-name");
-                        const firstcardtitle = document.getElementById('flashcard-first-title');
-                        const secondcardtitle = document.getElementById('flashcard-second-title');
-                        const card1phonetic = document.getElementById("placeholder-card-1-ipa");
-                        const card2phonetic = document.getElementById("placeholder-card-2-ipa");
-                        const card1place = document.getElementById("placeholder-card-1-place");
-                        const card2place = document.getElementById("placeholder-card-2-place");
-                        const card1voice = document.getElementById("placeholder-card-1-voicing");
-                        const card2voice = document.getElementById("placeholder-card-2-voicing");
-                        const card1manner = document.getElementById("placeholder-card-1-manner");
-                        const card2manner = document.getElementById("placeholder-card-2-manner");
-                        const card1phoneme = document.getElementById("placeholder-card-1-phoneme");
-                        const card2phoneme = document.getElementById("placeholder-card-2-phoneme");
-                        const cardplaceheader = document.getElementById("place-header");
-                        const cardvoiceheader = document.getElementById("voice-header");
-                        const cardmannerheader = document.getElementById("manner-header");
-                        const explanation = document.getElementById("explanation-div");
-                        const explanationdiv = document.getElementById("explanation-div");
-                        const gradioboxmain = document.getElementById("img-template");
-                        const placedotleft = document.getElementById("place-dot-left")
-                        const voicedotleft = document.getElementById("voice-dot-left")
-                        const mannerdotleft = document.getElementById("manner-dot-left")
-                        const placedotright = document.getElementById("place-dot-right")
-                        const voicedotright = document.getElementById("voice-dot-right")
-                        const mannerdotright = document.getElementById("manner-dot-right")
-                        firstcard.style.display = 'block'
-                        secondcard.style.display = 'block'
-                        // console.log('img 1 src is ' + Finaltem.pair.item1.b64_image)
-                        console.log('final item is ' + Finaltem)
-                        console.log(Object.keys(Finaltem).length)
-                        firstcard.src = './sdxl_realistic/'+Finaltem.pair.item1.b64_image;
-                        secondcard.src = './sdxl_realistic/'+Finaltem.pair.item2.b64_image;
-                        // table.style.display = 'inline'
-                        firstcardtitle.innerText = Finaltem.pair.item1.word
-                        secondcardtitle.innerText = Finaltem.pair.item2.word
-                        card1name.innerText = Finaltem.pair.item1.word
-                        card2name.innerText = Finaltem.pair.item2.word
-                        card1phonetic.innerText = Finaltem.pair.item1.ipa
-                        card2phonetic.innerText = Finaltem.pair.item2.ipa
-                        card1place.innerText = Finaltem.pair.item1.place
-                        card2place.innerText = Finaltem.pair.item2.place
-                        card1voice.innerText = Finaltem.pair.item1.voicing
-                        card2voice.innerText = Finaltem.pair.item2.voicing
-                        card1manner.innerText = Finaltem.pair.item1.manner
-                        card2manner.innerText = Finaltem.pair.item2.manner
-                        // Finaltem.pair.item1.sound.replace(/\//g, '')
-                        // Finaltem.pair.item2.sound.replace(/\//g, '')
-                        // if (Finaltem.pair.item1.sound.startsWith('/') && Finaltem.pair.item1.sound.endsWith('/')) {
-                        //   Finaltem.pair.item1.sound = Finaltem.pair.item1.sound.slice(2, -2);
-                        // }
-                        // if (Finaltem.pair.item2.sound.startsWith('/') && Finaltem.pair.item2.sound.endsWith('/')) {
-                        //   Finaltem.pair.item2.sound = Finaltem.pair.item2.sound.slice(2, -2);
-                        // }
-                        card1phoneme.innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/'
-                        card2phoneme.innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/'
-                        // explanationdiv.style.display = 'block'
-                        if (Finaltem.hasOwnProperty('explanation')){
-                        explanation.innerText = Finaltem.explanation
-                        }
-                        gradioboxmain.style.height = 'auto'
-  
-                        if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
-                            // cardvoiceheader.style.backgroundColor = 'lightblue';
-                            // cardvoiceheader.style.borderRadius = '5px';
-                            voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
-                            voicedotright.style.textShadow = '0 0 0 #9d0a0a';
-                            
-                        } else {
-                          voicedotleft.style.textShadow = '0 0 0 white';
-                          voicedotright.style.textShadow = '0 0 0 white';
-                        }
-                        // check diff manner
-                        if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
-                          mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
-                          mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
-  
-                            
-                        } else {
-                          mannerdotleft.style.textShadow = '0 0 0 white';
-                          mannerdotright.style.textShadow = '0 0 0 white';
-                        }
-                        // check diff place
-                        if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place ){
-                          placedotleft.style.textShadow = '0 0 0 #9d0a0a';
-                          placedotright.style.textShadow = '0 0 0 #9d0a0a';
-                            
-                        } else {
-                          placedotleft.style.textShadow = '0 0 0 white';
-                          placedotright.style.textShadow = '0 0 0 white';
-                        }
-                        // check diff voicing
-                        // Assuming data.base64Image contains the base64 encoded image
-                        // const base64Image = data.base64Image;
-                        // item1Image.src ='../images/flashcard1.png';
-                        // item2Image.src = '../images/flashcard2.png';
-                        // Set the background image of the image container
-                        //imageContainer.style.backgroundImage = `url(data:image/jpeg;base64,${base64Image})`;
+                function getSDXLrealistic() {
+                  console.log('calling sdxl realistic json function')
+                  // const contrast = document.getElementById('dropdown1').value;
+                  const location = document.getElementById('dropdown2').value;
+                  const sound = document.getElementById('dropdown3').value;
+                  // console.log('location is ' + location)
+                  // console.log('sound is ' + sound)
+                  
+                  // check input
+                  // var Finalitem = ["temp"]
+                  console.log('initial_l_sound_sdxl_realistic is ' + initial_l_sound_sdxl_realistic)
+                  console.log('initial_r_sound_sdxl_realistic is ' + initial_r_sound_sdxl_realistic)
+                  console.log('initial_s_sound_sdxl_realistic is ' + initial_s_sound_sdxl_realistic)
+                  if(location === 'initial' && sound.includes('l')) {
+                    Finaltem = initial_l_sound_sdxl_realistic[initial_l_sound_counter_sdxl_realistic]
+                    initial_l_sound_counter_sdxl_realistic += 1
+                    if(initial_l_sound_counter_sdxl_realistic == initial_l_sound_sdxl_realistic.length) {
+                      initial_l_sound_counter_sdxl_realistic = 0
                     }
+                  }
+                  else if(location === 'final' && sound.includes('l')) {
+                    Finaltem = final_l_sound_sdxl_realistic[final_l_sound_counter_sdxl_realistic]
+                    final_l_sound_counter_sdxl_realistic += 1
+                    if(final_l_sound_counter_sdxl_realistic == final_l_sound_sdxl_realistic.length) {
+                      final_l_sound_counter_sdxl_realistic = 0
+                    }
+                  }
+                  else if(location === 'initial' && sound.includes('r')) {
+                    Finaltem = initial_r_sound_sdxl_realistic[initial_r_sound_counter_sdxl_realistic]
+                    initial_r_sound_counter_sdxl_realistic += 1
+                    if(initial_r_sound_counter_sdxl_realistic == initial_r_sound_sdxl_realistic.length) {
+                      initial_r_sound_counter_sdxl_realistic = 0
+                    }
+                  }
+                  else if(location === 'final' && sound.includes('r')) {
+                    Finaltem = final_r_sound_sdxl_realistic[final_r_sound_counter_sdxl_realistic]
+                    final_r_sound_counter_sdxl_realistic += 1
+                    if(final_r_sound_counter_sdxl_realistic == final_r_sound_sdxl_realistic.length) {
+                      final_r_sound_counter_sdxl_realistic = 0
+                    }
+                  }
+                  else if(location === 'initial' && sound.includes('s')) {
+                    Finaltem = initial_s_sound_sdxl_realistic[initial_s_sound_counter_sdxl_realistic]
+                    initial_s_sound_counter_sdxl_realistic += 1
+                    if(initial_s_sound_counter_sdxl_realistic == initial_s_sound_sdxl_realistic.length) {
+                      initial_s_sound_counter_sdxl_realistic = 0
+                    }
+                  }
+                  else if(location === 'final' && sound.includes('s')) {
+                    Finaltem = final_s_sound_sdxl_realistic[final_s_sound_counter_sdxl_realistic]
+                    final_s_sound_counter_sdxl_realistic += 1
+                    if(final_s_sound_counter_sdxl_realistic == final_s_sound_sdxl_realistic.length) {
+                      final_s_sound_counter_sdxl_realistic = 0
+                    }
+                  }
+                  console.log('final item after filtering is ' + Finaltem)
+                  
+                  //const randomItem = filterDataByLocationAndSound(data, location, sound);
+                  //const Finaltem = getRandomIndex(randomItem);
 
-                    function getDalleCartoonCannedresponseNew() {
-                        
-                        // const contrast = document.getElementById('dropdown1').value;
-                        const location = document.getElementById('dropdown2').value;
-                        const sound = document.getElementById('dropdown3').value;
-                        // console.log('location is ' + location)
-                        // console.log('sound is ' + sound)
-                        
-                        // check input
-                        var Finalitem = ["temp"]
-                          
-                        if(location === 'initial' && sound.includes('l')) {
-                          Finaltem = initial_l_sound_dalle_cartoon[initial_l_sound_counter_dalle_cartoon]
-                          initial_l_sound_counter_dalle_cartoon += 1
-                          if(initial_l_sound_counter_dalle_cartoon == initial_l_sound_dalle_cartoon.length) {
-                            initial_l_sound_counter_dalle_cartoon = 0
-                          }
-                        }
-                        else if(location === 'final' && sound.includes('l')) {
-                          Finaltem = final_l_sound_dalle_cartoon[final_l_sound_counter_dalle_cartoon]
-                          final_l_sound_counter_dalle_cartoon += 1
-                          if(final_l_sound_counter_dalle_cartoon == final_l_sound_dalle_cartoon.length) {
-                            final_l_sound_counter_dalle_cartoon = 0
-                          }
-                        }
-                        else if(location === 'initial' && sound.includes('r')) {
-                          Finaltem = initial_r_sound_dalle_cartoon[initial_r_sound_counter_dalle_cartoon]
-                          initial_r_sound_counter_dalle_cartoon += 1
-                          if(initial_r_sound_counter_dalle_cartoon == initial_r_sound_dalle_cartoon.length) {
-                            initial_r_sound_counter_dalle_cartoon = 0
-                          }
-                        }
-                        else if(location === 'final' && sound.includes('r')) {
-                          Finaltem = final_r_sound_dalle_cartoon[final_r_sound_counter_dalle_cartoon]
-                          final_r_sound_counter_dalle_cartoon += 1
-                          if(final_r_sound_counter_dalle_cartoon == final_r_sound_dalle_cartoon.length) {
-                            final_r_sound_counter_dalle_cartoon = 0
-                          }
-                        }
-                        else if(location === 'initial' && sound.includes('s')) {
-                          Finaltem = initial_s_sound_dalle_cartoon[initial_s_sound_counter_dalle_cartoon]
-                          initial_s_sound_counter_dalle_cartoon += 1
-                          if(initial_s_sound_counter_dalle_cartoon == initial_s_sound_dalle_cartoon.length) {
-                            initial_s_sound_counter_dalle_cartoon = 0
-                          }
-                        }
-                        else if(location === 'final' && sound.includes('s')) {
-                          Finaltem = final_s_sound_dalle_cartoon[final_s_sound_counter_dalle_cartoon]
-                          final_s_sound_counter_dalle_cartoon += 1
-                          if(final_s_sound_counter_dalle_cartoon == final_s_sound_dalle_cartoon.length) {
-                            final_s_sound_counter_dalle_cartoon = 0
-                          }
-                        }
+                  //console.log('len filter data is ' + (Finaltem.length))
+
+                  //console.log('data 1 is ' + (Finaltem.pair.item1))
+                  
+                  const firstcard = document.getElementById('first-card');
+                  const secondcard = document.getElementById('second-card');
+                  const table = document.getElementById("card-details-table");
+                  const card1name = document.getElementById("placeholder-card-1-name");
+                  const card2name = document.getElementById("placeholder-card-2-name");
+                  const firstcardtitle = document.getElementById('flashcard-first-title');
+                  const secondcardtitle = document.getElementById('flashcard-second-title');
+                  const card1phonetic = document.getElementById("placeholder-card-1-ipa");
+                  const card2phonetic = document.getElementById("placeholder-card-2-ipa");
+                  const card1place = document.getElementById("placeholder-card-1-place");
+                  const card2place = document.getElementById("placeholder-card-2-place");
+                  const card1voice = document.getElementById("placeholder-card-1-voicing");
+                  const card2voice = document.getElementById("placeholder-card-2-voicing");
+                  const card1manner = document.getElementById("placeholder-card-1-manner");
+                  const card2manner = document.getElementById("placeholder-card-2-manner");
+                  const card1phoneme = document.getElementById("placeholder-card-1-phoneme");
+                  const card2phoneme = document.getElementById("placeholder-card-2-phoneme");
+                  const cardplaceheader = document.getElementById("place-header");
+                  const cardvoiceheader = document.getElementById("voice-header");
+                  const cardmannerheader = document.getElementById("manner-header");
+                  const explanation = document.getElementById("explanation-div");
+                  const explanationdiv = document.getElementById("explanation-div");
+                  const gradioboxmain = document.getElementById("img-template");
+                  const placedotleft = document.getElementById("place-dot-left")
+                  const voicedotleft = document.getElementById("voice-dot-left")
+                  const mannerdotleft = document.getElementById("manner-dot-left")
+                  const placedotright = document.getElementById("place-dot-right")
+                  const voicedotright = document.getElementById("voice-dot-right")
+                  const mannerdotright = document.getElementById("manner-dot-right")
+                  firstcard.style.display = 'block'
+                  secondcard.style.display = 'block'
+                  // console.log('img 1 src is ' + Finaltem.pair.item1.b64_image)
+                  console.log('final item is ' + Finaltem)
+                  console.log(Object.keys(Finaltem).length)
+                  firstcard.src = './sdxl_realistic/'+Finaltem.pair.item1.b64_image;
+                  secondcard.src = './sdxl_realistic/'+Finaltem.pair.item2.b64_image;
+                  // table.style.display = 'inline'
+                  firstcardtitle.innerText = Finaltem.pair.item1.word
+                  secondcardtitle.innerText = Finaltem.pair.item2.word
+                  card1name.innerText = Finaltem.pair.item1.word
+                  card2name.innerText = Finaltem.pair.item2.word
+                  card1phonetic.innerText = Finaltem.pair.item1.ipa
+                  card2phonetic.innerText = Finaltem.pair.item2.ipa
+                  card1place.innerText = Finaltem.pair.item1.place
+                  card2place.innerText = Finaltem.pair.item2.place
+                  card1voice.innerText = Finaltem.pair.item1.voicing
+                  card2voice.innerText = Finaltem.pair.item2.voicing
+                  card1manner.innerText = Finaltem.pair.item1.manner
+                  card2manner.innerText = Finaltem.pair.item2.manner
+                  // Finaltem.pair.item1.sound.replace(/\//g, '')
+                  // Finaltem.pair.item2.sound.replace(/\//g, '')
+                  // if (Finaltem.pair.item1.sound.startsWith('/') && Finaltem.pair.item1.sound.endsWith('/')) {
+                  //   Finaltem.pair.item1.sound = Finaltem.pair.item1.sound.slice(2, -2);
+                  // }
+                  // if (Finaltem.pair.item2.sound.startsWith('/') && Finaltem.pair.item2.sound.endsWith('/')) {
+                  //   Finaltem.pair.item2.sound = Finaltem.pair.item2.sound.slice(2, -2);
+                  // }
+                  card1phoneme.innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/'
+                  card2phoneme.innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/'
+                  // explanationdiv.style.display = 'block'
+                  if (Finaltem.hasOwnProperty('explanation')){
+                  explanation.innerText = Finaltem.explanation
+                  }
+                  gradioboxmain.style.height = 'auto'
   
-                        
-                        //const randomItem = filterDataByLocationAndSound(data, location, sound);
-                        //const Finaltem = getRandomIndex(randomItem);
-  
-                        //console.log('len filter data is ' + (Finaltem.length))
-  
-                        //console.log('data 1 is ' + (Finaltem.pair.item1))
-                        
-                        const firstcard = document.getElementById('first-card');
-                        const secondcard = document.getElementById('second-card');
-                        const table = document.getElementById("card-details-table");
-                        const card1name = document.getElementById("placeholder-card-1-name");
-                        const card2name = document.getElementById("placeholder-card-2-name");
-                        const firstcardtitle = document.getElementById('flashcard-first-title');
-                        const secondcardtitle = document.getElementById('flashcard-second-title');
-                        const card1phonetic = document.getElementById("placeholder-card-1-ipa");
-                        const card2phonetic = document.getElementById("placeholder-card-2-ipa");
-                        const card1place = document.getElementById("placeholder-card-1-place");
-                        const card2place = document.getElementById("placeholder-card-2-place");
-                        const card1voice = document.getElementById("placeholder-card-1-voicing");
-                        const card2voice = document.getElementById("placeholder-card-2-voicing");
-                        const card1manner = document.getElementById("placeholder-card-1-manner");
-                        const card2manner = document.getElementById("placeholder-card-2-manner");
-                        const card1phoneme = document.getElementById("placeholder-card-1-phoneme");
-                        const card2phoneme = document.getElementById("placeholder-card-2-phoneme");
-                        const cardplaceheader = document.getElementById("place-header");
-                        const cardvoiceheader = document.getElementById("voice-header");
-                        const cardmannerheader = document.getElementById("manner-header");
-                        const explanation = document.getElementById("explanation-div");
-                        const explanationdiv = document.getElementById("explanation-div");
-                        const gradioboxmain = document.getElementById("img-template");
-                        const placedotleft = document.getElementById("place-dot-left")
-                        const voicedotleft = document.getElementById("voice-dot-left")
-                        const mannerdotleft = document.getElementById("manner-dot-left")
-                        const placedotright = document.getElementById("place-dot-right")
-                        const voicedotright = document.getElementById("voice-dot-right")
-                        const mannerdotright = document.getElementById("manner-dot-right")
-                        firstcard.style.display = 'block'
-                        secondcard.style.display = 'block'
-                        // console.log('img 1 src is ' + Finaltem.pair.item1.b64_image)
-                        console.log('final item is ' + Finaltem)
-                        console.log(Object.keys(Finaltem).length)
-                        firstcard.src = Finaltem.pair.item1.b64_image;
-                        secondcard.src = Finaltem.pair.item2.b64_image;
-                        // table.style.display = 'inline'
-                        firstcardtitle.innerText = Finaltem.pair.item1.word
-                        secondcardtitle.innerText = Finaltem.pair.item2.word
-                        card1name.innerText = Finaltem.pair.item1.word
-                        card2name.innerText = Finaltem.pair.item2.word
-                        card1phonetic.innerText = Finaltem.pair.item1.ipa
-                        card2phonetic.innerText = Finaltem.pair.item2.ipa
-                        card1place.innerText = Finaltem.pair.item1.place
-                        card2place.innerText = Finaltem.pair.item2.place
-                        card1voice.innerText = Finaltem.pair.item1.voicing
-                        card2voice.innerText = Finaltem.pair.item2.voicing
-                        card1manner.innerText = Finaltem.pair.item1.manner
-                        card2manner.innerText = Finaltem.pair.item2.manner
-                        // Finaltem.pair.item1.sound.replace(/\//g, '')
-                        // Finaltem.pair.item2.sound.replace(/\//g, '')
-                        // if (Finaltem.pair.item1.sound.startsWith('/') && Finaltem.pair.item1.sound.endsWith('/')) {
-                        //   Finaltem.pair.item1.sound = Finaltem.pair.item1.sound.slice(2, -2);
-                        // }
-                        // if (Finaltem.pair.item2.sound.startsWith('/') && Finaltem.pair.item2.sound.endsWith('/')) {
-                        //   Finaltem.pair.item2.sound = Finaltem.pair.item2.sound.slice(2, -2);
-                        // }
-                        card1phoneme.innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/'
-                        card2phoneme.innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/'
-                        // explanationdiv.style.display = 'block'
-                        if (Finaltem.hasOwnProperty('explanation')){
-                        explanation.innerText = Finaltem.explanation
-                        }
-                        gradioboxmain.style.height = 'auto'
-  
-                        if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
-                            // cardvoiceheader.style.backgroundColor = 'lightblue';
-                            // cardvoiceheader.style.borderRadius = '5px';
-                            voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
-                            voicedotright.style.textShadow = '0 0 0 #9d0a0a';
-                            
-                        } else {
-                          voicedotleft.style.textShadow = '0 0 0 white';
-                          voicedotright.style.textShadow = '0 0 0 white';
-                        }
-                        // check diff manner
-                        if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
-                          mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
-                          mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
-  
-                            
-                        } else {
-                          mannerdotleft.style.textShadow = '0 0 0 white';
-                          mannerdotright.style.textShadow = '0 0 0 white';
-                        }
-                        // check diff place
-                        if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place ){
-                          placedotleft.style.textShadow = '0 0 0 #9d0a0a';
-                          placedotright.style.textShadow = '0 0 0 #9d0a0a';
-                            
-                        } else {
-                          placedotleft.style.textShadow = '0 0 0 white';
-                          placedotright.style.textShadow = '0 0 0 white';
-                        }
-                        // check diff voicing
-                        // Assuming data.base64Image contains the base64 encoded image
-                        // const base64Image = data.base64Image;
-                        // item1Image.src ='../images/flashcard1.png';
-                        // item2Image.src = '../images/flashcard2.png';
-                        // Set the background image of the image container
-                        //imageContainer.style.backgroundImage = `url(data:image/jpeg;base64,${base64Image})`;
-                    }
-  
+                  if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
+                      // cardvoiceheader.style.backgroundColor = 'lightblue';
+                      // cardvoiceheader.style.borderRadius = '5px';
+                      voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                      voicedotright.style.textShadow = '0 0 0 #9d0a0a';
                       
-                      function getDalleCannedresponseNew() {
-                        
+                  } else {
+                    voicedotleft.style.textShadow = '0 0 0 white';
+                    voicedotright.style.textShadow = '0 0 0 white';
+                  }
+                  // check diff manner
+                  if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
+                    mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
+                    mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
+    
+                      
+                  } else {
+                    mannerdotleft.style.textShadow = '0 0 0 white';
+                    mannerdotright.style.textShadow = '0 0 0 white';
+                  }
+                  // check diff place
+                  if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place ){
+                    placedotleft.style.textShadow = '0 0 0 #9d0a0a';
+                    placedotright.style.textShadow = '0 0 0 #9d0a0a';
+                      
+                  } else {
+                    placedotleft.style.textShadow = '0 0 0 white';
+                    placedotright.style.textShadow = '0 0 0 white';
+                  }
+                  // check diff voicing
+                  // Assuming data.base64Image contains the base64 encoded image
+                  // const base64Image = data.base64Image;
+                  // item1Image.src ='../images/flashcard1.png';
+                  // item2Image.src = '../images/flashcard2.png';
+                  // Set the background image of the image container
+                  //imageContainer.style.backgroundImage = `url(data:image/jpeg;base64,${base64Image})`;
+              }
+
+                  function getDalleCartoonCannedresponseNew() {
+                      
                       // const contrast = document.getElementById('dropdown1').value;
                       const location = document.getElementById('dropdown2').value;
                       const sound = document.getElementById('dropdown3').value;
@@ -816,48 +756,48 @@
                       var Finalitem = ["temp"]
                         
                       if(location === 'initial' && sound.includes('l')) {
-                        Finaltem = initial_l_sound_dalle[initial_l_sound_counter_dalle]
-                        initial_l_sound_counter_dalle += 1
-                        if(initial_l_sound_counter_dalle == initial_l_sound_dalle.length) {
-                          initial_l_sound_counter_dalle = 0
+                        Finaltem = initial_l_sound_dalle_cartoon[initial_l_sound_counter_dalle_cartoon]
+                        initial_l_sound_counter_dalle_cartoon += 1
+                        if(initial_l_sound_counter_dalle_cartoon == initial_l_sound_dalle_cartoon.length) {
+                          initial_l_sound_counter_dalle_cartoon = 0
                         }
                       }
                       else if(location === 'final' && sound.includes('l')) {
-                        Finaltem = final_l_sound_dalle[final_l_sound_counter_dalle]
-                        final_l_sound_counter_dalle += 1
-                        if(final_l_sound_counter_dalle == final_l_sound_dalle.length) {
-                          final_l_sound_counter_dalle = 0
+                        Finaltem = final_l_sound_dalle_cartoon[final_l_sound_counter_dalle_cartoon]
+                        final_l_sound_counter_dalle_cartoon += 1
+                        if(final_l_sound_counter_dalle_cartoon == final_l_sound_dalle_cartoon.length) {
+                          final_l_sound_counter_dalle_cartoon = 0
                         }
                       }
                       else if(location === 'initial' && sound.includes('r')) {
-                        Finaltem = initial_r_sound_dalle[initial_r_sound_counter_dalle]
-                        initial_r_sound_counter_dalle += 1
-                        if(initial_r_sound_counter_dalle == initial_r_sound_dalle.length) {
-                          initial_r_sound_counter_dalle = 0
+                        Finaltem = initial_r_sound_dalle_cartoon[initial_r_sound_counter_dalle_cartoon]
+                        initial_r_sound_counter_dalle_cartoon += 1
+                        if(initial_r_sound_counter_dalle_cartoon == initial_r_sound_dalle_cartoon.length) {
+                          initial_r_sound_counter_dalle_cartoon = 0
                         }
                       }
                       else if(location === 'final' && sound.includes('r')) {
-                        Finaltem = final_r_sound_dalle[final_r_sound_counter_dalle]
-                        final_r_sound_counter_dalle += 1
-                        if(final_r_sound_counter_dalle == final_r_sound_dalle.length) {
-                          final_r_sound_counter_dalle = 0
+                        Finaltem = final_r_sound_dalle_cartoon[final_r_sound_counter_dalle_cartoon]
+                        final_r_sound_counter_dalle_cartoon += 1
+                        if(final_r_sound_counter_dalle_cartoon == final_r_sound_dalle_cartoon.length) {
+                          final_r_sound_counter_dalle_cartoon = 0
                         }
                       }
                       else if(location === 'initial' && sound.includes('s')) {
-                        Finaltem = initial_s_sound_dalle[initial_s_sound_counter_dalle]
-                        initial_s_sound_counter_dalle += 1
-                        if(initial_s_sound_counter_dalle == initial_s_sound_dalle.length) {
-                          initial_s_sound_counter_dalle = 0
+                        Finaltem = initial_s_sound_dalle_cartoon[initial_s_sound_counter_dalle_cartoon]
+                        initial_s_sound_counter_dalle_cartoon += 1
+                        if(initial_s_sound_counter_dalle_cartoon == initial_s_sound_dalle_cartoon.length) {
+                          initial_s_sound_counter_dalle_cartoon = 0
                         }
                       }
                       else if(location === 'final' && sound.includes('s')) {
-                        Finaltem = final_s_sound_dalle[final_s_sound_counter_dalle]
-                        final_s_sound_counter_dalle += 1
-                        if(final_s_sound_counter_dalle == final_s_sound_dalle.length) {
-                          final_s_sound_counter_dalle = 0
+                        Finaltem = final_s_sound_dalle_cartoon[final_s_sound_counter_dalle_cartoon]
+                        final_s_sound_counter_dalle_cartoon += 1
+                        if(final_s_sound_counter_dalle_cartoon == final_s_sound_dalle_cartoon.length) {
+                          final_s_sound_counter_dalle_cartoon = 0
                         }
                       }
-
+    
                       
                       //const randomItem = filterDataByLocationAndSound(data, location, sound);
                       //const Finaltem = getRandomIndex(randomItem);
@@ -930,7 +870,7 @@
                       explanation.innerText = Finaltem.explanation
                       }
                       gradioboxmain.style.height = 'auto'
-
+  
                       if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
                           // cardvoiceheader.style.backgroundColor = 'lightblue';
                           // cardvoiceheader.style.borderRadius = '5px';
@@ -945,7 +885,7 @@
                       if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
                         mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
                         mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
-
+    
                           
                       } else {
                         mannerdotleft.style.textShadow = '0 0 0 white';
@@ -968,173 +908,7 @@
                       // Set the background image of the image container
                       //imageContainer.style.backgroundImage = `url(data:image/jpeg;base64,${base64Image})`;
                   }
-
-
-
-                      function getCannedresponseNew() {
-                        console.log('in canned response function')
-                      // const contrast = document.getElementById('dropdown1').value;
-                      const location = document.getElementById('dropdown2').value;
-                      const sound = document.getElementById('dropdown3').value;
-                      // console.log('location is ' + location)
-                      // console.log('sound is ' + sound)
-                      
-                      // check input
-                      // var Finalitem = ["temp"]
-                        
-                      if(location === 'initial' && sound.includes('l')) {
-                        Finaltem = initial_l_sound[initial_l_sound_counter]
-                        initial_l_sound_counter += 1
-                        if(initial_l_sound_counter == initial_l_sound.length) {
-                          initial_l_sound_counter = 0
-                        }
-                      }
-                      else if(location === 'final' && sound.includes('l')) {
-                        Finaltem = final_l_sound[final_l_sound_counter]
-                        final_l_sound_counter += 1
-                        if(final_l_sound_counter == final_l_sound.length) {
-                          final_l_sound_counter = 0
-                        }
-                      }
-                      else if(location === 'initial' && sound.includes('r')) {
-                        Finaltem = initial_r_sound[initial_r_sound_counter]
-                        initial_r_sound_counter += 1
-                        if(initial_r_sound_counter == initial_r_sound.length) {
-                          initial_r_sound_counter = 0
-                        }
-                      }
-                      else if(location === 'final' && sound.includes('r')) {
-                        Finaltem = final_r_sound[final_r_sound_counter]
-                        final_r_sound_counter += 1
-                        if(final_r_sound_counter == final_r_sound.length) {
-                          final_r_sound_counter = 0
-                        }
-                      }
-                      else if(location === 'initial' && sound.includes('s')) {
-                        Finaltem = initial_s_sound[initial_s_sound_counter]
-                        initial_s_sound_counter += 1
-                        if(initial_s_sound_counter == initial_s_sound.length) {
-                          initial_s_sound_counter = 0
-                        }
-                      }
-                      else if(location === 'final' && sound.includes('s')) {
-                        Finaltem = final_s_sound[final_s_sound_counter]
-                        final_s_sound_counter += 1
-                        if(final_s_sound_counter == final_s_sound.length) {
-                          final_s_sound_counter = 0
-                        }
-                      }
-
-                      
-                      //const randomItem = filterDataByLocationAndSound(data, location, sound);
-                      //const Finaltem = getRandomIndex(randomItem);
-
-                      //console.log('len filter data is ' + (Finaltem.length))
-
-                      //console.log('data 1 is ' + (Finaltem.pair.item1))
-                      
-                      const firstcard = document.getElementById('first-card');
-                      const secondcard = document.getElementById('second-card');
-                      const table = document.getElementById("card-details-table");
-                      const card1name = document.getElementById("placeholder-card-1-name");
-                      const card2name = document.getElementById("placeholder-card-2-name");
-                      const firstcardtitle = document.getElementById('flashcard-first-title');
-                      const secondcardtitle = document.getElementById('flashcard-second-title');
-                      const card1phonetic = document.getElementById("placeholder-card-1-ipa");
-                      const card2phonetic = document.getElementById("placeholder-card-2-ipa");
-                      const card1place = document.getElementById("placeholder-card-1-place");
-                      const card2place = document.getElementById("placeholder-card-2-place");
-                      const card1voice = document.getElementById("placeholder-card-1-voicing");
-                      const card2voice = document.getElementById("placeholder-card-2-voicing");
-                      const card1manner = document.getElementById("placeholder-card-1-manner");
-                      const card2manner = document.getElementById("placeholder-card-2-manner");
-                      const card1phoneme = document.getElementById("placeholder-card-1-phoneme");
-                      const card2phoneme = document.getElementById("placeholder-card-2-phoneme");
-                      const cardplaceheader = document.getElementById("place-header");
-                      const cardvoiceheader = document.getElementById("voice-header");
-                      const cardmannerheader = document.getElementById("manner-header");
-                      const explanation = document.getElementById("explanation-div");
-                      const explanationdiv = document.getElementById("explanation-div");
-                      const gradioboxmain = document.getElementById("img-template");
-                      const placedotleft = document.getElementById("place-dot-left")
-                      const voicedotleft = document.getElementById("voice-dot-left")
-                      const mannerdotleft = document.getElementById("manner-dot-left")
-                      const placedotright = document.getElementById("place-dot-right")
-                      const voicedotright = document.getElementById("voice-dot-right")
-                      const mannerdotright = document.getElementById("manner-dot-right")
-                      firstcard.style.display = 'block'
-                      secondcard.style.display = 'block'
-                      console.log('final item is ' + Finaltem)
-                      console.log(Object.keys(Finaltem).length)
-                      // console.log('img 1 src is ' + Finaltem.pair.item1.b64_image)
-                      firstcard.src = 'data:image/png;base64,' + Finaltem.pair.item1.b64_image;
-                      secondcard.src = 'data:image/png;base64,' + Finaltem.pair.item2.b64_image;
-                      // table.style.display = 'inline'
-                      firstcardtitle.innerText = Finaltem.pair.item1.word
-                      secondcardtitle.innerText = Finaltem.pair.item2.word
-                      card1name.innerText = Finaltem.pair.item1.word
-                      card2name.innerText = Finaltem.pair.item2.word
-                      card1phonetic.innerText = Finaltem.pair.item1.ipa
-                      card2phonetic.innerText = Finaltem.pair.item2.ipa
-                      card1place.innerText = Finaltem.pair.item1.place
-                      card2place.innerText = Finaltem.pair.item2.place
-                      card1voice.innerText = Finaltem.pair.item1.voicing
-                      card2voice.innerText = Finaltem.pair.item2.voicing
-                      card1manner.innerText = Finaltem.pair.item1.manner
-                      card2manner.innerText = Finaltem.pair.item2.manner
-                      // Finaltem.pair.item1.sound.replace(/\//g, '')
-                      // Finaltem.pair.item2.sound.replace(/\//g, '')
-                      // if (Finaltem.pair.item1.sound.startsWith('/') && Finaltem.pair.item1.sound.endsWith('/')) {
-                      //   Finaltem.pair.item1.sound = Finaltem.pair.item1.sound.slice(2, -2);
-                      // }
-                      // if (Finaltem.pair.item2.sound.startsWith('/') && Finaltem.pair.item2.sound.endsWith('/')) {
-                      //   Finaltem.pair.item2.sound = Finaltem.pair.item2.sound.slice(2, -2);
-                      // }
-                      card1phoneme.innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/'
-                      card2phoneme.innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/'
-                      // explanationdiv.style.display = 'block'
-                      // explanation.innerText = Finaltem.explanation
-                      
-                      gradioboxmain.style.height = 'auto'
-
-                      if (Finaltem.pair.item1.voicing !== Finaltem.pair.item2.voicing ){
-                          // cardvoiceheader.style.backgroundColor = 'lightblue';
-                          // cardvoiceheader.style.borderRadius = '5px';
-                          voicedotleft.style.textShadow = '0 0 0 #9d0a0a';
-                          voicedotright.style.textShadow = '0 0 0 #9d0a0a';
-                          
-                      } else {
-                        voicedotleft.style.textShadow = '0 0 0 white';
-                        voicedotright.style.textShadow = '0 0 0 white';
-                      }
-                      // check diff manner
-                      if (Finaltem.pair.item1.manner !== Finaltem.pair.item2.manner ){
-                        mannerdotleft.style.textShadow = '0 0 0 #9d0a0a';
-                        mannerdotright.style.textShadow = '0 0 0 #9d0a0a';
-
-                          
-                      } else {
-                        mannerdotleft.style.textShadow = '0 0 0 white';
-                        mannerdotright.style.textShadow = '0 0 0 white';
-                      }
-                      // check diff place
-                      if (Finaltem.pair.item1.place !== Finaltem.pair.item2.place ){
-                        placedotleft.style.textShadow = '0 0 0 #9d0a0a';
-                        placedotright.style.textShadow = '0 0 0 #9d0a0a';
-                          
-                      } else {
-                        placedotleft.style.textShadow = '0 0 0 white';
-                        placedotright.style.textShadow = '0 0 0 white';
-                      }
-                      // check diff voicing
-                      // Assuming data.base64Image contains the base64 encoded image
-                      // const base64Image = data.base64Image;
-                      // item1Image.src ='../images/flashcard1.png';
-                      // item2Image.src = '../images/flashcard2.png';
-                      // Set the background image of the image container
-                      //imageContainer.style.backgroundImage = `url(data:image/jpeg;base64,${base64Image})`;
-                  }
-                  
+    
                     
                   
               </script>
