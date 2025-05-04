@@ -9,7 +9,7 @@ const fluxdata = [{
             "word": "pig",
             "visual_prompt": "visual_prompt1",
             "sound": "p",
-            "ipa": "pɪg",
+            "ipa": "pɪɡ",
             "place": "bilabial",
             "manner": "plosive",
             "voicing": "voiceless",
@@ -19,7 +19,7 @@ const fluxdata = [{
             "word": "big",
             "visual_prompt": "visual_prompt2",
             "sound": "b",
-            "ipa": "bɪg",
+            "ipa": "bɪɡ",
             "place": "bilabial",
             "manner": "plosive",
             "voicing": "voiced",
@@ -35,23 +35,23 @@ const fluxdata = [{
     "sound": "b",
     "pair": {
         "item1": {
-            "word": "bark",
-            "ipa": "bɑrk",
-            "sound": "b",
-            "place": "bilabial",
-            "manner": "stop",
-            "voicing": "voiced",
-            "b64_image": "bark.jpg"
-        },
-        "item2": {
             "word": "park",
             "ipa": "pɑrk",
             "sound": "p",
             "place": "bilabial",
-            "manner": "stop",
+            "manner": "plosive",
             "voicing": "voiceless",
-            "b64_image": "park.jpg"
+            "b64_image": "flux/park.jpg"
+        },
+        "item2": {
+            "word": "bark",
+            "ipa": "bɑrk",
+            "sound": "b",
+            "place": "bilabial",
+            "manner": "plosive",
+            "voicing": "voiced",
+            "b64_image": "flux/bark.jpg"
         }
     },
-    "explanation": "These words are contrasting in voicing only - 'bark' begins with a voiced bilabial stop /b/ while 'park' begins with a voiceless bilabial stop /p/. They share the same place of articulation (bilabial) and manner of articulation (stop)."
+    "explanation": "These words are contrasting in voicing only - 'bark' begins with a voiced bilabial plosive /b/ while 'park' begins with a voiceless bilabial plosive /p/. They share the same place of articulation (bilabial) and manner of articulation (plosive)."
 }]; 

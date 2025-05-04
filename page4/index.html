@@ -189,9 +189,8 @@
                   <select id="dropdown3" onchange="updateInput()">
                       <option value="/s/">/s/</option>
                       <option value="/l/">/l/</option>
-                      <option value="/r/" selected>/r/</option>
-                      <option value="/p/">/p/</option>
-                      <option value="/b/">/b/</option>
+                      <option value="/r/">/r/</option>
+                      <option value="/p/" selected>/p/</option>
                   </select>
                 </div>
                 </div>
@@ -206,6 +205,11 @@
                     document.getElementById('dropdown4').value = 'flux';
                     document.getElementById('dropdown3').value = '/p/';
                     checkModel();
+                    
+                    // Add event listener for Create button
+                    document.getElementById('getData').addEventListener('click', function() {
+                      checkModel();
+                    });
                   }
 
                   function updateInput() {
@@ -469,17 +473,15 @@
                   
                   if(modelselected === 'flux') {
                     if(location === 'initial' && sound.includes('p')) {
-                      Finaltem = initial_p_sound_flux[initial_p_sound_counter_flux]
-                      initial_p_sound_counter_flux += 1
-                      if(initial_p_sound_counter_flux == initial_p_sound_flux.length) {
-                        initial_p_sound_counter_flux = 0
+                      // Alternate between pig/big and park/bark pairs
+                      if(initial_p_sound_counter_flux % 2 === 0) {
+                        Finaltem = initial_p_sound_flux[initial_p_sound_counter_flux/2]
+                      } else {
+                        Finaltem = initial_b_sound_flux[Math.floor(initial_p_sound_counter_flux/2)]
                       }
-                    }
-                    else if(location === 'initial' && sound.includes('b')) {
-                      Finaltem = initial_b_sound_flux[initial_b_sound_counter_flux]
-                      initial_b_sound_counter_flux += 1
-                      if(initial_b_sound_counter_flux == initial_b_sound_flux.length) {
-                        initial_b_sound_counter_flux = 0
+                      initial_p_sound_counter_flux += 1
+                      if(initial_p_sound_counter_flux >= initial_p_sound_flux.length * 2) {
+                        initial_p_sound_counter_flux = 0
                       }
                     }
                     else if(location === 'final' && sound.includes('p')) {
@@ -487,13 +489,6 @@
                       final_p_sound_counter_flux += 1
                       if(final_p_sound_counter_flux == final_p_sound_flux.length) {
                         final_p_sound_counter_flux = 0
-                      }
-                    }
-                    else if(location === 'final' && sound.includes('b')) {
-                      Finaltem = final_b_sound_flux[final_b_sound_counter_flux]
-                      final_b_sound_counter_flux += 1
-                      if(final_b_sound_counter_flux == final_b_sound_flux.length) {
-                        final_b_sound_counter_flux = 0
                       }
                     }
                     
