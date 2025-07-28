@@ -471,6 +471,10 @@
                   const location = document.getElementById('dropdown2').value;
                   const sound = document.getElementById('dropdown3').value;
                   
+                  console.log('Selected:', {model: modelselected, style: styleselected, location: location, sound: sound});
+                  
+                  let Finaltem = null;
+                  
                   if(modelselected === 'flux') {
                     if(location === 'initial' && sound.includes('p')) {
                       // Alternate between pig/big and park/bark pairs
@@ -485,55 +489,285 @@
                       }
                     }
                     else if(location === 'final' && sound.includes('p')) {
-                      Finaltem = final_p_sound_flux[final_p_sound_counter_flux]
-                      final_p_sound_counter_flux += 1
-                      if(final_p_sound_counter_flux == final_p_sound_flux.length) {
-                        final_p_sound_counter_flux = 0
+                      if(final_p_sound_flux.length > 0) {
+                        Finaltem = final_p_sound_flux[final_p_sound_counter_flux]
+                        final_p_sound_counter_flux += 1
+                        if(final_p_sound_counter_flux >= final_p_sound_flux.length) {
+                          final_p_sound_counter_flux = 0
+                        }
                       }
                     }
                     
-                    // Display the Flux images regardless of style selection
-                    const firstcard = document.getElementById('first-card');
-                    const secondcard = document.getElementById('second-card');
-                    firstcard.src = Finaltem.pair.item1.b64_image;
-                    secondcard.src = Finaltem.pair.item2.b64_image;
-                    
-                    // Update other card details
-                    document.getElementById('flashcard-first-title').innerText = Finaltem.pair.item1.word;
-                    document.getElementById('flashcard-second-title').innerText = Finaltem.pair.item2.word;
-                    document.getElementById("placeholder-card-1-name").innerText = Finaltem.pair.item1.word;
-                    document.getElementById("placeholder-card-2-name").innerText = Finaltem.pair.item2.word;
-                    document.getElementById("placeholder-card-1-ipa").innerText = Finaltem.pair.item1.ipa;
-                    document.getElementById("placeholder-card-2-ipa").innerText = Finaltem.pair.item2.ipa;
-                    document.getElementById("placeholder-card-1-place").innerText = Finaltem.pair.item1.place;
-                    document.getElementById("placeholder-card-2-place").innerText = Finaltem.pair.item2.place;
-                    document.getElementById("placeholder-card-1-voicing").innerText = Finaltem.pair.item1.voicing;
-                    document.getElementById("placeholder-card-2-voicing").innerText = Finaltem.pair.item2.voicing;
-                    document.getElementById("placeholder-card-1-manner").innerText = Finaltem.pair.item1.manner;
-                    document.getElementById("placeholder-card-2-manner").innerText = Finaltem.pair.item2.manner;
-                    document.getElementById("placeholder-card-1-phoneme").innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/';
-                    document.getElementById("placeholder-card-2-phoneme").innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/';
-                    
-                    // Update explanation if available
-                    if (Finaltem.hasOwnProperty('explanation')) {
-                      document.getElementById("explanation-div").innerText = Finaltem.explanation;
+                    // Display the Flux images if we found data
+                    if(Finaltem) {
+                      displayFlashcard(Finaltem);
+                    } else {
+                      console.log('No Flux data available for:', location, sound);
+                      displayPopup();
                     }
-                    
-                    // Update dots for differences
-                    updateDifferenceDots(Finaltem);
                   }
                   else if (modelselected === "dalle" && styleselected === "photorealistic" ) {
-                    getDalleCannedresponseNew()
+                    if(typeof getDalleCannedresponseNew === 'function') {
+                      getDalleCannedresponseNew()
+                    } else {
+                      console.log('getDalleCannedresponseNew function not found');
+                      displayPopup();
+                    }
                   } else if (modelselected === "dalle" && styleselected === "childrenplaybook" ) {
                     getDalleCartoonCannedresponseNew()
                   }
                   else if (modelselected === "sdxl" && styleselected === "childrenplaybook") {
                     console.log('called older json')
-                    getCannedresponseNew()
+                    if(typeof getCannedresponseNew === 'function') {
+                      getCannedresponseNew()
+                    } else {
+                      console.log('getCannedresponseNew function not found, trying SDXL fallback');
+                      trySDXLFallback();
+                    }
                   } else if (modelselected === "sdxl" && styleselected === "photorealistic") {
                     getSDXLrealistic()
+                  } else {
+                    console.log('Unhandled combination:', {model: modelselected, style: styleselected});
+                    displayPopup();
                   }
                 }
+
+                // New function to display flashcard data
+                function displayFlashcard(Finaltem) {
+                  const firstcard = document.getElementById('first-card');
+                  const secondcard = document.getElementById('second-card');
+                  
+                  firstcard.src = Finaltem.pair.item1.b64_image;
+                  secondcard.src = Finaltem.pair.item2.b64_image;
+                  
+                  // Update other card details
+                  document.getElementById('flashcard-first-title').innerText = Finaltem.pair.item1.word;
+                  document.getElementById('flashcard-second-title').innerText = Finaltem.pair.item2.word;
+                  document.getElementById("placeholder-card-1-name").innerText = Finaltem.pair.item1.word;
+                  document.getElementById("placeholder-card-2-name").innerText = Finaltem.pair.item2.word;
+                  document.getElementById("placeholder-card-1-ipa").innerText = Finaltem.pair.item1.ipa;
+                  document.getElementById("placeholder-card-2-ipa").innerText = Finaltem.pair.item2.ipa;
+                  document.getElementById("placeholder-card-1-place").innerText = Finaltem.pair.item1.place;
+                  document.getElementById("placeholder-card-2-place").innerText = Finaltem.pair.item2.place;
+                  document.getElementById("placeholder-card-1-voicing").innerText = Finaltem.pair.item1.voicing;
+                  document.getElementById("placeholder-card-2-voicing").innerText = Finaltem.pair.item2.voicing;
+                  document.getElementById("placeholder-card-1-manner").innerText = Finaltem.pair.item1.manner;
+                  document.getElementById("placeholder-card-2-manner").innerText = Finaltem.pair.item2.manner;
+                  document.getElementById("placeholder-card-1-phoneme").innerText = '/' + Finaltem.pair.item1.sound.replace(/\//g, '') + '/';
+                  document.getElementById("placeholder-card-2-phoneme").innerText = '/' + Finaltem.pair.item2.sound.replace(/\//g, '') + '/';
+                  
+                  // Update explanation if available
+                  if (Finaltem.hasOwnProperty('explanation')) {
+                    document.getElementById("explanation-div").innerText = Finaltem.explanation;
+                  }
+                  
+                  // Update dots for differences
+                  updateDifferenceDots(Finaltem);
+                }
+
+                // Fallback function for SDXL when getCannedresponseNew is not available
+                function trySDXLFallback() {
+                  const location = document.getElementById('dropdown2').value;
+                  const sound = document.getElementById('dropdown3').value;
+                  
+                  let Finaltem = null;
+                  
+                  // Try to use the same data structure as other functions
+                  if(location === 'initial' && sound.includes('l')) {
+                    if(initial_l_sound.length > 0) {
+                      Finaltem = initial_l_sound[initial_l_sound_counter % initial_l_sound.length];
+                      initial_l_sound_counter++;
+                    }
+                  }
+                  else if(location === 'final' && sound.includes('l')) {
+                    if(final_l_sound.length > 0) {
+                      Finaltem = final_l_sound[final_l_sound_counter % final_l_sound.length];
+                      final_l_sound_counter++;
+                    }
+                  }
+                  else if(location === 'initial' && sound.includes('r')) {
+                    if(initial_r_sound.length > 0) {
+                      Finaltem = initial_r_sound[initial_r_sound_counter % initial_r_sound.length];
+                      initial_r_sound_counter++;
+                    }
+                  }
+                  else if(location === 'final' && sound.includes('r')) {
+                    if(final_r_sound.length > 0) {
+                      Finaltem = final_r_sound[final_r_sound_counter % final_r_sound.length];
+                      final_r_sound_counter++;
+                    }
+                  }
+                  else if(location === 'initial' && sound.includes('s')) {
+                    if(initial_s_sound.length > 0) {
+                      Finaltem = initial_s_sound[initial_s_sound_counter % initial_s_sound.length];
+                      initial_s_sound_counter++;
+                    }
+                  }
+                  else if(location === 'final' && sound.includes('s')) {
+                    if(final_s_sound.length > 0) {
+                      Finaltem = final_s_sound[final_s_sound_counter % final_s_sound.length];
+                      final_s_sound_counter++;
+                    }
+                  }
+                  
+                                     if(Finaltem) {
+                     // Use the same display logic as getSDXLrealistic but with different image path
+                     const firstcard = document.getElementById('first-card');
+                     const secondcard = document.getElementById('second-card');
+                     
+                     firstcard.src = Finaltem.pair.item1.b64_image;
+                     secondcard.src = Finaltem.pair.item2.b64_image;
+                     
+                     displayFlashcard(Finaltem);
+                   } else {
+                     console.log('No SDXL fallback data available for:', location, sound);
+                     displayPopup();
+                   }
+                 }
+
+                 // Add the missing getCannedresponseNew function for SDXL children playbook
+                 function getCannedresponseNew() {
+                   console.log('calling SDXL children playbook function')
+                   const location = document.getElementById('dropdown2').value;
+                   const sound = document.getElementById('dropdown3').value;
+                   
+                   let Finaltem = null;
+                   
+                   if(location === 'initial' && sound.includes('l')) {
+                     if(initial_l_sound.length > 0) {
+                       Finaltem = initial_l_sound[initial_l_sound_counter]
+                       initial_l_sound_counter += 1
+                       if(initial_l_sound_counter >= initial_l_sound.length) {
+                         initial_l_sound_counter = 0
+                       }
+                     }
+                   }
+                   else if(location === 'final' && sound.includes('l')) {
+                     if(final_l_sound.length > 0) {
+                       Finaltem = final_l_sound[final_l_sound_counter]
+                       final_l_sound_counter += 1
+                       if(final_l_sound_counter >= final_l_sound.length) {
+                         final_l_sound_counter = 0
+                       }
+                     }
+                   }
+                   else if(location === 'initial' && sound.includes('r')) {
+                     if(initial_r_sound.length > 0) {
+                       Finaltem = initial_r_sound[initial_r_sound_counter]
+                       initial_r_sound_counter += 1
+                       if(initial_r_sound_counter >= initial_r_sound.length) {
+                         initial_r_sound_counter = 0
+                       }
+                     }
+                   }
+                   else if(location === 'final' && sound.includes('r')) {
+                     if(final_r_sound.length > 0) {
+                       Finaltem = final_r_sound[final_r_sound_counter]
+                       final_r_sound_counter += 1
+                       if(final_r_sound_counter >= final_r_sound.length) {
+                         final_r_sound_counter = 0
+                       }
+                     }
+                   }
+                   else if(location === 'initial' && sound.includes('s')) {
+                     if(initial_s_sound.length > 0) {
+                       Finaltem = initial_s_sound[initial_s_sound_counter]
+                       initial_s_sound_counter += 1
+                       if(initial_s_sound_counter >= initial_s_sound.length) {
+                         initial_s_sound_counter = 0
+                       }
+                     }
+                   }
+                   else if(location === 'final' && sound.includes('s')) {
+                     if(final_s_sound.length > 0) {
+                       Finaltem = final_s_sound[final_s_sound_counter]
+                       final_s_sound_counter += 1
+                       if(final_s_sound_counter >= final_s_sound.length) {
+                         final_s_sound_counter = 0
+                       }
+                     }
+                   }
+                   
+                   if(Finaltem) {
+                     console.log('Found SDXL children playbook data for:', location, sound)
+                     displayFlashcard(Finaltem);
+                   } else {
+                     console.log('No SDXL children playbook data available for:', location, sound);
+                     displayPopup();
+                   }
+                 }
+
+                 // Add the missing getDalleCannedresponseNew function for Dalle photorealistic
+                 function getDalleCannedresponseNew() {
+                   console.log('calling Dalle photorealistic function')
+                   const location = document.getElementById('dropdown2').value;
+                   const sound = document.getElementById('dropdown3').value;
+                   
+                   let Finaltem = null;
+                   
+                   if(location === 'initial' && sound.includes('l')) {
+                     if(initial_l_sound_dalle.length > 0) {
+                       Finaltem = initial_l_sound_dalle[initial_l_sound_counter_dalle]
+                       initial_l_sound_counter_dalle += 1
+                       if(initial_l_sound_counter_dalle >= initial_l_sound_dalle.length) {
+                         initial_l_sound_counter_dalle = 0
+                       }
+                     }
+                   }
+                   else if(location === 'final' && sound.includes('l')) {
+                     if(final_l_sound_dalle.length > 0) {
+                       Finaltem = final_l_sound_dalle[final_l_sound_counter_dalle]
+                       final_l_sound_counter_dalle += 1
+                       if(final_l_sound_counter_dalle >= final_l_sound_dalle.length) {
+                         final_l_sound_counter_dalle = 0
+                       }
+                     }
+                   }
+                   else if(location === 'initial' && sound.includes('r')) {
+                     if(initial_r_sound_dalle.length > 0) {
+                       Finaltem = initial_r_sound_dalle[initial_r_sound_counter_dalle]
+                       initial_r_sound_counter_dalle += 1
+                       if(initial_r_sound_counter_dalle >= initial_r_sound_dalle.length) {
+                         initial_r_sound_counter_dalle = 0
+                       }
+                     }
+                   }
+                   else if(location === 'final' && sound.includes('r')) {
+                     if(final_r_sound_dalle.length > 0) {
+                       Finaltem = final_r_sound_dalle[final_r_sound_counter_dalle]
+                       final_r_sound_counter_dalle += 1
+                       if(final_r_sound_counter_dalle >= final_r_sound_dalle.length) {
+                         final_r_sound_counter_dalle = 0
+                       }
+                     }
+                   }
+                   else if(location === 'initial' && sound.includes('s')) {
+                     if(initial_s_sound_dalle.length > 0) {
+                       Finaltem = initial_s_sound_dalle[initial_s_sound_counter_dalle]
+                       initial_s_sound_counter_dalle += 1
+                       if(initial_s_sound_counter_dalle >= initial_s_sound_dalle.length) {
+                         initial_s_sound_counter_dalle = 0
+                       }
+                     }
+                   }
+                   else if(location === 'final' && sound.includes('s')) {
+                     if(final_s_sound_dalle.length > 0) {
+                       Finaltem = final_s_sound_dalle[final_s_sound_counter_dalle]
+                       final_s_sound_counter_dalle += 1
+                       if(final_s_sound_counter_dalle >= final_s_sound_dalle.length) {
+                         final_s_sound_counter_dalle = 0
+                       }
+                     }
+                   }
+                   
+                   if(Finaltem) {
+                     console.log('Found Dalle photorealistic data for:', location, sound)
+                     displayFlashcard(Finaltem);
+                   } else {
+                     console.log('No Dalle photorealistic data available for:', location, sound);
+                     displayPopup();
+                   }
+                 }
 
                 // Helper function to update the difference dots
                 function updateDifferenceDots(Finaltem) {
