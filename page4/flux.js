@@ -41,7 +41,7 @@ const fluxdata = [{
             "place": "bilabial",
             "manner": "plosive",
             "voicing": "voiceless",
-            "b64_image": "flux/park.jpg"
+            "b64_image": "./flux/park.jpg"
         },
         "item2": {
             "word": "bark",
@@ -50,8 +50,35 @@ const fluxdata = [{
             "place": "bilabial",
             "manner": "plosive",
             "voicing": "voiced",
-            "b64_image": "flux/bark.jpg"
+            "b64_image": "./flux/bark.jpg"
         }
     },
     "explanation": "These words are contrasting in voicing only - 'bark' begins with a voiced bilabial plosive /b/ while 'park' begins with a voiceless bilabial plosive /p/. They share the same place of articulation (bilabial) and manner of articulation (plosive)."
+}, {
+    "uuid": '003',
+    "prompt": "cap vs cab",
+    "contrast": "minimal",
+    "location": "final",
+    "sound": "p",
+    "pair": {
+        "item1": {
+            "word": "cap",
+            "ipa": "kæp",
+            "sound": "p",
+            "place": "bilabial",
+            "manner": "plosive",
+            "voicing": "voiceless",
+            "b64_image": "./flux/cap.jpg"
+        },
+        "item2": {
+            "word": "cab",
+            "ipa": "kæb",
+            "sound": "b",
+            "place": "bilabial",
+            "manner": "plosive",
+            "voicing": "voiced",
+            "b64_image": "./flux/cab.jpg"
+        }
+    },
+    "explanation": "These words contrast in final position voicing - 'cap' ends with a voiceless bilabial plosive /p/ while 'cab' ends with a voiced bilabial plosive /b/."
 }]; 
